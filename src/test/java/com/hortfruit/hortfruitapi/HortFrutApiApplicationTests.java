@@ -1,4 +1,4 @@
-package com.hortfrut.hortfrutapi;
+package com.hortfruit.hortfruitapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,13 +1,13 @@
-package com.hortfrut.hortfrutapi;
-
+package com.hortfruit.hortfruitapi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HortFrutApiApplication {
+public class HortFruitApiApplication {
+
 
 	public static void main(String[] args) {
-		SpringApplication.run(HortFrutApiApplication.class, args);
+		SpringApplication.run(HortFruitApiApplication.class, args);
 	}
 
 }
