@@ -6,15 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "sede")
-@Getter
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Sede implements Serializable {
@@ -22,7 +19,7 @@ public class Sede implements Serializable {
 
     @Id
     @Column(name="id",updatable = false, nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String nome;
@@ -40,12 +37,9 @@ public class Sede implements Serializable {
     private String descricao;
 
     @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Venda> sedeLista = new HashSet<>();
+    private List<Venda> vendas = new ArrayList<>();
 
     @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Venda> vendas;
-
-    @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EstoqueProduto> estoques;
+    private List<EstoqueProduto> estoques = new ArrayList<>();
 
 }

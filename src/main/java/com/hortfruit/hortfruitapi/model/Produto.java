@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,9 +42,9 @@ public class Produto implements Serializable {
     private Fornecedor fornecedor;
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ItemVenda> itensVendidos;
+    private List<ItemVenda> itensVendidos = new ArrayList<>();
 
     @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<EstoqueProduto> estoques;
+    private List<EstoqueProduto> estoques = new ArrayList<>();
 
 }
