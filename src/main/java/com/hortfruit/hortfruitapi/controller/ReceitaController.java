@@ -1,24 +1,22 @@
 package com.hortfruit.hortfruitapi.controller;
 
-import com.hortfruit.hortfruitapi.model.Produto;
-import com.hortfruit.hortfruitapi.service.ProdutoService;
+import com.hortfruit.hortfruitapi.model.Receita;
+import com.hortfruit.hortfruitapi.service.ReceitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/produto")
-public class ProdutoController {
-
+@RequestMapping("/receitas")
+public class ReceitaController {
     @Autowired
-    private ProdutoService produtoService;
+    private ReceitaService receitaService;
 
     @GetMapping
-    public List<Produto> buscarTodos(){
-        List<Produto> produtos = produtoService.buscaTodos();
-        return produtos;
+    public List<Receita> buscarTodos(){
+        List<Receita> receitas = receitaService.buscarTodos();
+        return receitas;
     }
 }

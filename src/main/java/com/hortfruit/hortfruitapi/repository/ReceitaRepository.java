@@ -1,10 +1,11 @@
 package com.hortfruit.hortfruitapi.repository;
 
-import com.hortfruit.hortfruitapi.model.Produto;
+import com.hortfruit.hortfruitapi.model.FormaPagamento;
+import com.hortfruit.hortfruitapi.model.Receita;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 @Repository
-public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
+public interface ReceitaRepository extends JpaRepository<Receita, UUID> {
 }
