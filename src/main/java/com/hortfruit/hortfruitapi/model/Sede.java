@@ -5,19 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="fornecedor")
+@Table(name = "sede")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fornecedor implements Serializable {
+public class Sede implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -25,25 +25,27 @@ public class Fornecedor implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @Column(name="nome")
     private String nome;
 
-    @Column(name="cidade")
+    private String bairro;
+
     private String cidade;
 
-    @Column(name="estado")
     private String estado;
 
-    @Column(name="cnpj")
-    private String cnpj;
+    private String rua;
 
-    @Column(name="telefone")
-    private String telefone;
+    private String numero;
 
-    @Column(name="email")
-    private String email;
+    private String descricao;
 
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Produto> produtos = new HashSet<>();
+    @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Venda> sedeLista = new HashSet<>();
+
+    @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Venda> vendas;
+
+    @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstoqueProduto> estoques;
 
 }

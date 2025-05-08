@@ -31,7 +31,7 @@ public class Receita implements Serializable {
     @Column(name = "valor_receita")
     private BigDecimal valorReceita;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "forma_pagamento_id", nullable = false)
     private FormaPagamento formaPagamento;
 

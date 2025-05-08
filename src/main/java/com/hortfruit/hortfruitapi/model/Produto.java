@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -24,6 +25,7 @@ public class Produto implements Serializable {
     @GeneratedValue
     private UUID id;
 
+
     @Column(name="nome")
     private String nome;
 
@@ -33,11 +35,15 @@ public class Produto implements Serializable {
     @Column(name="preco")
     private BigDecimal preco;
 
-    @Column(name="estoque")
-    private Integer estoque;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fornecedor_id", nullable = false)
     private Fornecedor fornecedor;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemVenda> itensVendidos;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EstoqueProduto> estoques;
 
 }

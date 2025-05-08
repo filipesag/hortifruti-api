@@ -12,12 +12,12 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
-@Table(name="fornecedor")
+@Table(name = "endereco_entrega")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fornecedor implements Serializable {
+public class EnderecoEntrega implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -25,25 +25,17 @@ public class Fornecedor implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    @Column(name="nome")
-    private String nome;
-
-    @Column(name="cidade")
     private String cidade;
 
-    @Column(name="estado")
     private String estado;
 
-    @Column(name="cnpj")
-    private String cnpj;
+    private String bairro;
 
-    @Column(name="telefone")
-    private String telefone;
+    private String rua;
 
-    @Column(name="email")
-    private String email;
+    private String numero;
 
-    @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Produto> produtos = new HashSet<>();
+    @OneToMany(mappedBy = "enderecoEntrega", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Venda> enderecoLista = new HashSet<>();
 
 }
