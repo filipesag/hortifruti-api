@@ -17,8 +17,8 @@ import java.util.List;
 public class SedeService {
 
     @Autowired
-    private final SedeRepository sedeRepository;
-    @Autowired
+    private SedeRepository sedeRepository;
+
     private final SedeMapper sedeMapper;
 
     public List<Sede> buscarTodos() {
@@ -27,8 +27,8 @@ public class SedeService {
     }
 
     @Transactional
-    public SedeResponseDTO criarSede(SedeRequestDTO sede){
-        Sede novaSede = sedeMapper.toEntity(sede);
+    public SedeResponseDTO criarSede(SedeRequestDTO dto){
+        Sede novaSede = sedeMapper.toEntity(dto);
         sedeRepository.save(novaSede);
         return sedeMapper.toDTO(novaSede);
     }

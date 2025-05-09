@@ -1,0 +1,10 @@
+package com.hortifruti.hortifrutiapi.dto.estoque;
+
+import java.util.UUID;
+
+public record EstoqueProdutoRequestDTO(
+        UUID id,
+        UUID produtoId,
+        UUID sedeId,
+        Integer quantidade
+) {}

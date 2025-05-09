@@ -26,8 +26,8 @@ public class SedeController {
     }
 
     @PostMapping
-    public ResponseEntity<SedeResponseDTO> inserirNovaSede(@RequestBody @Valid SedeRequestDTO sede) {
-        SedeResponseDTO novaSede = sedeService.criarSede(sede);
+    public ResponseEntity<SedeResponseDTO> inserirNovaSede(@RequestBody @Valid SedeRequestDTO dto) {
+        SedeResponseDTO novaSede = sedeService.criarSede(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

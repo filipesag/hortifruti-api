@@ -33,7 +33,7 @@ public class Venda implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receita_id", nullable = false)
-    private Receita receita;
+    private BalanceteOperacaoVenda balanceteOperacaoVenda;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sede_id", nullable = false)

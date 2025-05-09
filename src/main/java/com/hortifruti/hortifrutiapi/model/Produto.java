@@ -1,10 +1,7 @@
 package com.hortifruti.hortifrutiapi.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -14,10 +11,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "produto")
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;
 

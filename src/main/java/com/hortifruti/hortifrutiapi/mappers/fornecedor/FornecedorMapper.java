@@ -4,21 +4,16 @@ import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorResponseDTO;
 import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface FornecedorMapper {
-
-    default Fornecedor toEntity(FornecedorRequestDTO dto) {
-        Fornecedor fornecedor = new Fornecedor();
-        fornecedor.setNome(dto.nome());
-        fornecedor.setCidade(dto.cidade());
-        fornecedor.setEstado(dto.estado());
-        fornecedor.setCnpj(dto.cnpj());
-        fornecedor.setTelefone(dto.telefone());
-        fornecedor.setEmail(dto.email());
-        fornecedor.setIsAtivo(true);
-        return fornecedor;
-    }
+    @Mapping(target = "nome", source = "nome")
+    @Mapping(target = "cidade", source = "cidade")
+    @Mapping(target = "estado", source = "estado")
+    @Mapping(target = "cnpj", source = "cnpj")
+    @Mapping(target = "telefone", source = "telefone")
+    Fornecedor toEntity(FornecedorRequestDTO dto);
 
     FornecedorResponseDTO toDTO(Fornecedor fornecedor);
 }

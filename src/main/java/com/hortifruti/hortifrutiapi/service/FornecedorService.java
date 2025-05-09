@@ -7,6 +7,7 @@ import com.hortifruti.hortifrutiapi.mappers.fornecedor.FornecedorMapper;
 import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import com.hortifruti.hortifrutiapi.repository.FornecedorRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +16,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class FornecedorService {
 
     @Autowired
     private FornecedorRepository fornecedorRepository;
 
-    @Autowired
-    private FornecedorMapper fornecedorMapper;
+    private final FornecedorMapper fornecedorMapper;
 
     public List<Fornecedor> buscarTodos() {
         List<Fornecedor> fornecedores = fornecedorRepository.findAll();
@@ -29,8 +30,8 @@ public class FornecedorService {
     }
 
     @Transactional
-    public FornecedorResponseDTO criarFornecedor(FornecedorRequestDTO fornecedor){
-        Fornecedor novoFornecedor = fornecedorMapper.toEntity(fornecedor);
+    public FornecedorResponseDTO criarFornecedor(FornecedorRequestDTO dto){
+        Fornecedor novoFornecedor = fornecedorMapper.toEntity(dto);
         novoFornecedor.setIsAtivo(true);
         fornecedorRepository.save(novoFornecedor);
         return fornecedorMapper.toDTO(novoFornecedor);

@@ -1,16 +1,22 @@
 package com.hortifruti.hortifrutiapi.controller;
 
+import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoRequestDTO;
+import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutoRequestDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutoResponseDTO;
 import com.hortifruti.hortifrutiapi.model.Produto;
 import com.hortifruti.hortifrutiapi.service.ProdutoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("api/produto")
 public class ProdutoController {
 
     @Autowired
@@ -18,7 +24,29 @@ public class ProdutoController {
 
     @GetMapping
     public List<Produto> buscarTodos(){
-        List<Produto> produtos = produtoService.buscaTodos();
+        List<Produto> produtos = produtoService.buscarTodos();
         return produtos;
+    }
+
+    @PostMapping("/adiciona-produto")
+    public ResponseEntity<ProdutoResponseDTO> inserirNovoProduto(@RequestBody @Valid ProdutoRequestDTO produto) {
+        ProdutoResponseDTO novoProduto = produtoService.criarProduto(produto);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(novoProduto.id())
+                .toUri();
+        return ResponseEntity.created(uri).body(novoProduto);
+    }
+
+    @PostMapping("/estoque")
+    public ResponseEntity<EstoqueProdutoResponseDTO> controlaEstoque(@RequestBody @Valid EstoqueProdutoRequestDTO estoque) {
+        EstoqueProdutoResponseDTO estoqueCriado = produtoService.adicionarEstoque(estoque);
+        URI uri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(estoqueCriado.id())
+                .toUri();
+        return ResponseEntity.created(uri).body(estoqueCriado);
     }
 }

@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.model;
 
+import com.hortifruti.hortifrutiapi.model.enums.TipoPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,13 +27,13 @@ public class FormaPagamento implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    private String descricao;
+    @Enumerated(EnumType.STRING)
+    private TipoPagamento descricao;
 
-    private Double taxa;
-
+    @Column(name="valor_taxa_compra")
     private BigDecimal valorTaxa;
 
     @OneToMany(mappedBy = "formaPagamento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Receita> receitas = new HashSet<>();
+    private Set<BalanceteOperacaoVenda> balanceteOperacaoVendas = new HashSet<>();
 
 }

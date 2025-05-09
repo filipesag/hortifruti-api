@@ -32,19 +32,19 @@ public class FornecedorController {
     }
 
     @PostMapping
-    public ResponseEntity<FornecedorResponseDTO> inserirNovoFornecedor(@RequestBody @Valid FornecedorRequestDTO fornecedor) {
-        FornecedorResponseDTO novoFornecdor = fornecedorService.criarFornecedor(fornecedor);
+    public ResponseEntity<FornecedorResponseDTO> inserirNovoFornecedor(@RequestBody @Valid FornecedorRequestDTO dto) {
+        FornecedorResponseDTO novoFornecedor = fornecedorService.criarFornecedor(dto);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(novoFornecdor.id())
+                .buildAndExpand(novoFornecedor.id())
                 .toUri();
-        return ResponseEntity.created(uri).body(novoFornecdor);
+        return ResponseEntity.created(uri).body(novoFornecedor);
     }
 
     @PutMapping("/cancela-contrato/{id}")
-    public ResponseEntity<FornecedorContratoCanceladoDTO> cancelaContrato(@PathVariable UUID id, @RequestBody FornecedorUpdateDTO fornecedor) {
-        FornecedorResponseDTO fornecedorCancelado = fornecedorService.rescindeContrato(id, fornecedor);
+    public ResponseEntity<FornecedorContratoCanceladoDTO> cancelaContrato(@PathVariable UUID id, @RequestBody FornecedorUpdateDTO dto) {
+        FornecedorResponseDTO fornecedorCancelado = fornecedorService.rescindeContrato(id, dto);
         String msgSucesso = "Contrato cancelado com sucesso!";
         return ResponseEntity.ok().body(new FornecedorContratoCanceladoDTO(msgSucesso, fornecedorCancelado));
     }

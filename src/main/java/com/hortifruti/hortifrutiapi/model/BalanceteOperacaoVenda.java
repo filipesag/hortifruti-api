@@ -16,7 +16,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Receita implements Serializable {
+public class BalanceteOperacaoVenda implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
