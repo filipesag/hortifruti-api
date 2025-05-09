@@ -25,7 +25,8 @@ public class FormatoVenda implements Serializable {
     @GeneratedValue
     private UUID id;
 
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    private FormatoVenda tipo;
 
     @OneToMany(mappedBy = "formatoVenda", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Venda> formatoVendas = new HashSet<>();
