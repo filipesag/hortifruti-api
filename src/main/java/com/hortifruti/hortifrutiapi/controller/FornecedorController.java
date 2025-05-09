@@ -1,7 +1,9 @@
 package com.hortifruti.hortifrutiapi.controller;
 
+import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorContratoCanceladoDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorUpdateDTO;
 import com.hortifruti.hortifrutiapi.dto.sede.SedeRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
 import com.hortifruti.hortifrutiapi.model.Fornecedor;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("api/fornecedor")
@@ -38,4 +41,18 @@ public class FornecedorController {
                 .toUri();
         return ResponseEntity.created(uri).body(novoFornecdor);
     }
+
+    @PutMapping("/cancela-contrato/{id}")
+    public ResponseEntity<FornecedorContratoCanceladoDTO> cancelaContrato(@PathVariable UUID id, @RequestBody FornecedorUpdateDTO fornecedor) {
+        FornecedorResponseDTO fornecedorCancelado = fornecedorService.rescindeContrato(id, fornecedor);
+        String msgSucesso = "Contrato cancelado com sucesso!";
+        return ResponseEntity.ok().body(new FornecedorContratoCanceladoDTO(msgSucesso, fornecedorCancelado));
+    }
+
+    @PutMapping("/atualiza-fornecedor/{id}")
+    public ResponseEntity<FornecedorResponseDTO> atualizaFornecedor(@PathVariable UUID id, @RequestBody FornecedorUpdateDTO fornecedor) {
+        FornecedorResponseDTO novoFornecedor = fornecedorService.atualizaFornecedor(id, fornecedor);
+        return ResponseEntity.ok().body(novoFornecedor);
+    }
+
 }

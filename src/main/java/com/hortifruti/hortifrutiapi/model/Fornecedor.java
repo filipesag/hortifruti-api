@@ -43,6 +43,9 @@ public class Fornecedor implements Serializable {
     @Column(name="email")
     private String email;
 
+    @Column(name="contrato_status")
+    private Boolean isAtivo;
+
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Produto> produtos = new HashSet<>();
 

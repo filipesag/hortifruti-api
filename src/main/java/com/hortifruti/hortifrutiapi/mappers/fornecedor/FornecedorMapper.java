@@ -8,7 +8,17 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface FornecedorMapper {
 
-    Fornecedor toEntity(FornecedorRequestDTO dto);
+    default Fornecedor toEntity(FornecedorRequestDTO dto) {
+        Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setNome(dto.nome());
+        fornecedor.setCidade(dto.cidade());
+        fornecedor.setEstado(dto.estado());
+        fornecedor.setCnpj(dto.cnpj());
+        fornecedor.setTelefone(dto.telefone());
+        fornecedor.setEmail(dto.email());
+        fornecedor.setIsAtivo(true);
+        return fornecedor;
+    }
 
     FornecedorResponseDTO toDTO(Fornecedor fornecedor);
 }

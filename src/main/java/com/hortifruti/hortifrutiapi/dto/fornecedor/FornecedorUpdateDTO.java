@@ -1,9 +1,7 @@
 package com.hortifruti.hortifrutiapi.dto.fornecedor;
 
-import java.util.UUID;
 
-public record FornecedorResponseDTO(
-        UUID id,
+public record FornecedorUpdateDTO(
         String nome,
         String cidade,
         String estado,
