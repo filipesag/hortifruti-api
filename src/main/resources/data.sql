@@ -1,0 +1,83 @@
+-- Inserir Sedes
+INSERT INTO sede (id, nome, bairro, cidade, estado, rua, numero, descricao) VALUES
+('550e8400-e29b-41d4-a716-446655440000', 'Guajajaras', 'Centro', 'Belo Horizonte', 'MG', 'Rua Guajajaras', '1231', 'SACOLAO'),
+('550e8400-e29b-41d4-a716-446655440001', 'Pampulha', 'Santa Amélia', 'Belo Horizonte', 'MG', 'Rua dos Sonhos', '1211', 'HIPER'),
+('550e8400-e29b-41d4-a716-446655440002', 'Contagem 1', 'Novo Eldorado', 'Contagem', 'MG', 'Rua Ipuera', '288', 'SACOLAO'),
+('550e8400-e29b-41d4-a716-446655440003', 'Vista Alegre', 'Vista Alegre', 'Belo Horizonte', 'MG', 'Rua Coimbra', '119', 'SACOLAO');
+
+-- Inserir Formas de Pagamento
+INSERT INTO forma_pagamento (id, descricao, valor_taxa_compra) VALUES
+('660e8400-e29b-41d4-a716-446655440000', 'DINHEIRO', 0.00),
+('660e8400-e29b-41d4-a716-446655440001', 'PIX', 0.00),
+('660e8400-e29b-41d4-a716-446655440002', 'CARTAO_DEBITO_GOLDMONEY', 1.1),
+('660e8400-e29b-41d4-a716-446655440003', 'CARTAO_DEBITO_VIDACARD', 1.11),
+('660e8400-e29b-41d4-a716-446655440004', 'CARTAO_DEBITO_MASTERCOIN', 1.12),
+('660e8400-e29b-41d4-a716-446655440005', 'CARTAO_DEBITO_ALECARD', 2.1),
+('660e8400-e29b-41d4-a716-446655440006', 'CARTAO_CREDITO_GOLDMONEY', 1.99),
+('660e8400-e29b-41d4-a716-446655440007', 'CARTAO_CREDITO_VIDACARD', 1.02),
+('660e8400-e29b-41d4-a716-446655440008', 'CARTAO_CREDITO_ALECARD', 1.99),
+('660e8400-e29b-41d4-a716-446655440009', 'CARTAO_ALIMENTACAO_ALEXO', 2.19),
+('660e8400-e29b-41d4-a716-446655440010', 'CARTAO_ALIMENTACAO_SODELO', 1.23),
+('660e8400-e29b-41d4-a716-446655440011', 'CARTAO_REFEICAO_ALEXO', 1.12),
+('660e8400-e29b-41d4-a716-446655440012', 'CARTAO_REFEICAO_SODELO', 1.11);
+
+-- Inserir Formatos de Venda
+INSERT INTO formato_venda (id, tipo) VALUES
+('770e8400-e29b-41d4-a716-446655440000', 'FISICA'),
+('770e8400-e29b-41d4-a716-446655440001', 'APP_QUICK_FOOD'),
+('770e8400-e29b-41d4-a716-446655440002', 'APP_NATIVO_HORTIFRUTI');
+
+-- Inserir Fornecedores
+INSERT INTO fornecedor (id, nome, cidade, estado, cnpj, telefone, email, contrato_status) VALUES
+('880e8400-e29b-41d4-a716-446655440000', 'Fazenda Feliz', 'Belo Horizonte', 'MG', '12345678000100', '3133334444', 'contato@fazendafeliz.com.br', true),
+('880e8400-e29b-41d4-a716-446655440001', 'Horta da Serra', 'Nova Lima', 'MG', '98765432000100', '3133335555', 'contato@hortadaserra.com.br', true),
+('880e8400-e29b-41d4-a716-446655440002', 'Produtos Naturais LTDA', 'Contagem', 'MG', '45678912000100', '3133336666', 'vendas@produtosnaturais.com.br', true),
+('880e8400-e29b-41d4-a716-446655440003', 'Agropecuária Mineira', 'Belo Horizonte', 'MG', '78912345000100', '3133337777', 'contato@agromineira.com.br', false);
+
+-- Inserir Produtos
+INSERT INTO produto (id, nome, unidade_medida, preco, fornecedor_id) VALUES
+('990e8400-e29b-41d4-a716-446655440000', 'Maçã Gala', 'KG', 5.99, '880e8400-e29b-41d4-a716-446655440000'),
+('990e8400-e29b-41d4-a716-446655440001', 'Banana Prata', 'KG', 3.49, '880e8400-e29b-41d4-a716-446655440000'),
+('990e8400-e29b-41d4-a716-446655440002', 'Alface Crespa', 'UN', 1.99, '880e8400-e29b-41d4-a716-446655440001'),
+('990e8400-e29b-41d4-a716-446655440003', 'Tomate', 'KG', 4.79, '880e8400-e29b-41d4-a716-446655440002'),
+('990e8400-e29b-41d4-a716-446655440004', 'Cenoura', 'KG', 2.99, '880e8400-e29b-41d4-a716-446655440002'),
+('990e8400-e29b-41d4-a716-446655440005', 'Batata Inglesa', 'KG', 3.29, '880e8400-e29b-41d4-a716-446655440003');
+
+-- Inserir Estoque de Produtos
+INSERT INTO estoque_produto (id, produto_id, sede_id, quantidade) VALUES
+('aa0e8400-e29b-41d4-a716-446655440000', '990e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440000', 50),
+('aa0e8400-e29b-41d4-a716-446655440001', '990e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440000', 30),
+('aa0e8400-e29b-41d4-a716-446655440002', '990e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440001', 100),
+('aa0e8400-e29b-41d4-a716-446655440003', '990e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440002', 40),
+('aa0e8400-e29b-41d4-a716-446655440004', '990e8400-e29b-41d4-a716-446655440004', '550e8400-e29b-41d4-a716-446655440003', 60),
+('aa0e8400-e29b-41d4-a716-446655440005', '990e8400-e29b-41d4-a716-446655440005', '550e8400-e29b-41d4-a716-446655440003', 80);
+
+-- Inserir Endereços de Entrega
+INSERT INTO endereco_entrega (id, cidade, estado, bairro, rua, numero) VALUES
+('bb0e8400-e29b-41d4-a716-446655440000', 'Belo Horizonte', 'MG', 'Savassi', 'Rua da Bahia', '1200'),
+('bb0e8400-e29b-41d4-a716-446655440001', 'Belo Horizonte', 'MG', 'Funcionários', 'Avenida do Contorno', '4500'),
+('bb0e8400-e29b-41d4-a716-446655440002', 'Contagem', 'MG', 'Eldorado', 'Rua São Paulo', '350'),
+('bb0e8400-e29b-41d4-a716-446655440003', 'Belo Horizonte', 'MG', 'Santa Tereza', 'Rua Mármore', '200');
+
+-- Inserir Balancete de Operação de Venda
+INSERT INTO receita (id, data_receita, valor_receita, forma_pagamento_id) VALUES
+('cc0e8400-e29b-41d4-a716-446655440000', '2023-01-15 10:00:00', 45.50, '660e8400-e29b-41d4-a716-446655440000'),
+('cc0e8400-e29b-41d4-a716-446655440001', '2023-01-15 11:30:00', 32.75, '660e8400-e29b-41d4-a716-446655440001'),
+('cc0e8400-e29b-41d4-a716-446655440002', '2023-01-16 09:15:00', 28.90, '660e8400-e29b-41d4-a716-446655440002'),
+('cc0e8400-e29b-41d4-a716-446655440003', '2023-01-16 14:45:00', 19.99, '660e8400-e29b-41d4-a716-446655440003');
+
+-- Inserir Vendas
+-- Vendas (usando apenas status permitidos)
+INSERT INTO venda (id, data_venda, total, status_venda, receita_id, sede_id, endereco_entrega_id, formato_venda_id) VALUES
+('dd0e8400-e29b-41d4-a716-446655440000', '2023-01-15 10:00:00', 45.50, 'APROVADA', 'cc0e8400-e29b-41d4-a716-446655440000', '550e8400-e29b-41d4-a716-446655440000', 'bb0e8400-e29b-41d4-a716-446655440000', '770e8400-e29b-41d4-a716-446655440000'),
+('dd0e8400-e29b-41d4-a716-446655440001', '2023-01-15 11:30:00', 32.75, 'APROVADA', 'cc0e8400-e29b-41d4-a716-446655440001', '550e8400-e29b-41d4-a716-446655440001', 'bb0e8400-e29b-41d4-a716-446655440001', '770e8400-e29b-41d4-a716-446655440001'),
+('dd0e8400-e29b-41d4-a716-446655440002', '2023-01-16 09:15:00', 28.90, 'APROVADA', 'cc0e8400-e29b-41d4-a716-446655440002', '550e8400-e29b-41d4-a716-446655440002', 'bb0e8400-e29b-41d4-a716-446655440002', '770e8400-e29b-41d4-a716-446655440002'),
+('dd0e8400-e29b-41d4-a716-446655440003', '2023-01-16 14:45:00', 19.99, 'CANCELADA', 'cc0e8400-e29b-41d4-a716-446655440003', '550e8400-e29b-41d4-a716-446655440003', 'bb0e8400-e29b-41d4-a716-446655440003', '770e8400-e29b-41d4-a716-446655440000');
+
+-- Inserir Itens de Venda
+INSERT INTO item_venda (id, quantidade, preco_unit, venda_id, produto_id) VALUES
+('ee0e8400-e29b-41d4-a716-446655440000', 2, 5.99, 'dd0e8400-e29b-41d4-a716-446655440000', '990e8400-e29b-41d4-a716-446655440000'),
+('ee0e8400-e29b-41d4-a716-446655440001', 3, 3.49, 'dd0e8400-e29b-41d4-a716-446655440000', '990e8400-e29b-41d4-a716-446655440001'),
+('ee0e8400-e29b-41d4-a716-446655440002', 5, 1.99, 'dd0e8400-e29b-41d4-a716-446655440001', '990e8400-e29b-41d4-a716-446655440002'),
+('ee0e8400-e29b-41d4-a716-446655440003', 2, 4.79, 'dd0e8400-e29b-41d4-a716-446655440002', '990e8400-e29b-41d4-a716-446655440003'),
+('ee0e8400-e29b-41d4-a716-446655440004', 3, 2.99, 'dd0e8400-e29b-41d4-a716-446655440003', '990e8400-e29b-41d4-a716-446655440004');

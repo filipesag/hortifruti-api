@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.model;
 
+import com.hortifruti.hortifrutiapi.model.enums.TipoFormatoVenda;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class FormatoVenda implements Serializable {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private FormatoVenda tipo;
+    private TipoFormatoVenda tipo;
 
     @OneToMany(mappedBy = "formatoVenda", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Venda> formatoVendas = new HashSet<>();

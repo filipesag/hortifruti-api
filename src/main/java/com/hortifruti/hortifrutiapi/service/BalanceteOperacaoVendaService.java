@@ -16,4 +16,8 @@ public class BalanceteOperacaoVendaService {
         List<BalanceteOperacaoVenda> balanceteOperacaoVendas = balanceteOperacaoVendaRepository.findAll();
         return balanceteOperacaoVendas;
     }
+
+//    public criaBalancete(){
+//
+//    }
 }

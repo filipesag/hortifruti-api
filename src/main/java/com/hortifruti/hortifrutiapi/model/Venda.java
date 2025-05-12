@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.model;
 
+import com.hortifruti.hortifrutiapi.model.enums.StatusVenda;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,21 +28,23 @@ public class Venda implements Serializable {
     @GeneratedValue
     private UUID id;
     @Column(name="data_venda")
-    private Date dataVenda;
+    private Instant dataVenda;
     private BigDecimal total;
+
     @Column(name="status_venda")
-    private String statusVenda;
+    @Enumerated(EnumType.STRING)
+    private StatusVenda statusVenda;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "receita_id", nullable = false)
     private BalanceteOperacaoVenda balanceteOperacaoVenda;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sede_id", nullable = false)
+    @JoinColumn(name = "sede_id")
     private Sede sede;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "endereco_entrega_id", nullable = false)
+    @JoinColumn(name = "endereco_entrega_id")
     private EnderecoEntrega enderecoEntrega;
 
     @ManyToOne(fetch = FetchType.LAZY)

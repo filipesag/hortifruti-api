@@ -7,11 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "receita")
+@Table(name = "balancete_operacao")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class BalanceteOperacaoVenda implements Serializable {
     private UUID id;
 
     @Column(name = "data_receita")
-    private Date dataReceita;
+    private Instant dataReceita;
 
     @Column(name = "valor_receita")
     private BigDecimal valorReceita;
