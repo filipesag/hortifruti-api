@@ -9,6 +9,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,9 +23,13 @@ public class SedeService {
 
     private final SedeMapper sedeMapper;
 
-    public List<Sede> buscarTodos() {
+    public List<SedeResponseDTO> buscarTodos() {
         List<Sede> sedes = sedeRepository.findAll();
-        return sedes;
+        List<SedeResponseDTO> listaSedes = new ArrayList<>();
+        for (Sede sede : sedes) {
+            listaSedes.add(sedeMapper.toDTO(sede));
+        }
+        return listaSedes;
     }
 
     @Transactional

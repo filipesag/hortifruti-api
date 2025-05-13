@@ -3,14 +3,17 @@ package com.hortifruti.hortifrutiapi.service;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorUpdateDTO;
+import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
 import com.hortifruti.hortifrutiapi.mappers.fornecedor.FornecedorMapper;
 import com.hortifruti.hortifrutiapi.model.Fornecedor;
+import com.hortifruti.hortifrutiapi.model.Sede;
 import com.hortifruti.hortifrutiapi.repository.FornecedorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,9 +27,13 @@ public class FornecedorService {
 
     private final FornecedorMapper fornecedorMapper;
 
-    public List<Fornecedor> buscarTodos() {
+    public List<FornecedorResponseDTO> buscarTodos() {
         List<Fornecedor> fornecedores = fornecedorRepository.findAll();
-        return fornecedores;
+        List<FornecedorResponseDTO> listaFornecedores = new ArrayList<>();
+        for (Fornecedor fornecedor : fornecedores) {
+            listaFornecedores.add(fornecedorMapper.toDTO(fornecedor));
+        }
+        return listaFornecedores;
     }
 
     @Transactional

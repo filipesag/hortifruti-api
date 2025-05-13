@@ -20,8 +20,8 @@ public class SedeController {
     private SedeService sedeService;
 
     @GetMapping("/buscar-todos")
-    public ResponseEntity<List<Sede>> buscarTodos() {
-        List<Sede> sedes = sedeService.buscarTodos();
+    public ResponseEntity<List<SedeResponseDTO>> buscarTodos() {
+        List<SedeResponseDTO> sedes = sedeService.buscarTodos();
         return ResponseEntity.ok().body(sedes);
     }
 

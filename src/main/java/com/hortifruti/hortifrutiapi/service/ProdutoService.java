@@ -4,12 +4,11 @@ import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaDTO;
 import com.hortifruti.hortifrutiapi.mappers.estoque.EstoqueProdutoMapperAbs;
+import com.hortifruti.hortifrutiapi.mappers.itemVenda.ItemVendaMapper;
 import com.hortifruti.hortifrutiapi.mappers.produto.ProdutoMapper;
-import com.hortifruti.hortifrutiapi.model.EstoqueProduto;
-import com.hortifruti.hortifrutiapi.model.Fornecedor;
-import com.hortifruti.hortifrutiapi.model.Produto;
-import com.hortifruti.hortifrutiapi.model.Sede;
+import com.hortifruti.hortifrutiapi.model.*;
 import com.hortifruti.hortifrutiapi.repository.EstoqueProdutoRepository;
 import com.hortifruti.hortifrutiapi.repository.FornecedorRepository;
 import com.hortifruti.hortifrutiapi.repository.ProdutoRepository;
@@ -20,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,6 +41,8 @@ public class ProdutoService {
     private final ProdutoMapper produtoMapper;
 
     private final EstoqueProdutoMapperAbs estoqueProdutoMapper;
+
+    private final ItemVendaMapper itemVendaMapper;
 
     public List<Produto> buscarTodos() {
         List<Produto> produtos = produtoRepository.findAll();
@@ -71,6 +73,13 @@ public class ProdutoService {
         estoqueProdutoRepository.save(estoque);
         return estoqueProdutoMapper.toDTO(estoque);
     }
+
+//    public List<ItemVendaDTO> adicionaProdutoVenda(List<ItemVendaDTO> itens){
+//        List<ItemVenda> itensVenda = new ArrayList<>();
+//        for(ItemVendaDTO item : itens) {
+//            itensVenda.add(itemVendaMapper.toEntity(item));
+//        }
+//    }
 
 
 

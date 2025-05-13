@@ -26,8 +26,8 @@ public class FornecedorController {
     private FornecedorService fornecedorService;
 
     @GetMapping("/buscar-todos-fornecedores")
-    public List<Fornecedor> buscarTodos(){
-        List<Fornecedor> fornecedores = fornecedorService.buscarTodos();
+    public List<FornecedorResponseDTO> buscarTodos(){
+        List<FornecedorResponseDTO> fornecedores = fornecedorService.buscarTodos();
         return fornecedores;
     }
 

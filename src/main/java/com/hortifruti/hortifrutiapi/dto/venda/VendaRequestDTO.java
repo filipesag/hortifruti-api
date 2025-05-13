@@ -11,8 +11,6 @@ public record VendaRequestDTO(
     Instant dataVenda,
     BigDecimal total,
     StatusVenda statusVenda,
-    UUID balanceteOperacaoVendaId,
     UUID sedeId,
-    UUID enderecoEntregaId,
     UUID formatoVendaId
 ) {}

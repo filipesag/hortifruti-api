@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,6 +48,7 @@ public class Fornecedor implements Serializable {
     private Boolean isAtivo;
 
     @OneToMany(mappedBy = "fornecedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Set<Produto> produtos = new HashSet<>();
 
 }

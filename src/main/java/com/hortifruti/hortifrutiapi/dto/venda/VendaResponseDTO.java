@@ -1,10 +1,9 @@
 package com.hortifruti.hortifrutiapi.dto.venda;
 
-import com.hortifruti.hortifrutiapi.dto.enderecoEntrega.EnderecoEntregaDTO;
+
 import com.hortifruti.hortifrutiapi.dto.formatoVenda.FormatoVendaDTO;
 import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
 import com.hortifruti.hortifrutiapi.model.enums.StatusVenda;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
@@ -16,7 +15,6 @@ public record VendaResponseDTO(
         BigDecimal total,
         StatusVenda statusVenda,
         SedeResponseDTO sede,
-        EnderecoEntregaDTO enderecoEntrega,
         FormatoVendaDTO formatoVenda,
         List<ItemVendaDTO> itens
 ) {}

@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hortifruti.hortifrutiapi.model.enums.TipoPagamento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
