@@ -1,5 +1,6 @@
 package com.hortifruti.hortifrutiapi.controller;
 
+import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaAdicionadoDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaComBalanceteRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaResponseDTO;
@@ -38,8 +39,7 @@ public class VendaController {
     @PostMapping("/{vendaId}/itens")
     public ResponseEntity<List<ItemVendaDTO>> adicionarItensVenda(
             @PathVariable UUID vendaId,
-            @RequestBody List<ItemVendaDTO> itensDTO) {
-
+            @RequestBody List<ItemVendaAdicionadoDTO> itensDTO) {
         try {
             List<ItemVendaDTO> itensAdicionados = vendaService.adicionarItensAVenda(vendaId, itensDTO).itens();
             return ResponseEntity.ok(itensAdicionados);
@@ -52,5 +52,16 @@ public class VendaController {
         }
     }
 
+    @PostMapping("/fecha-venda/{vendaId}")
+    public VendaResponseDTO aprovaVenda(@PathVariable UUID vendaId){
+        VendaResponseDTO venda = vendaService.aprovaVenda(vendaId);
+        return ResponseEntity.ok(venda).getBody();
+    }
+
+    @PostMapping("/cancela-venda/{vendaId}")
+    public VendaResponseDTO cancelaVenda(@PathVariable UUID vendaId){
+        VendaResponseDTO venda = vendaService.cancelaVenda(vendaId);
+        return ResponseEntity.ok(venda).getBody();
+    }
 
 }

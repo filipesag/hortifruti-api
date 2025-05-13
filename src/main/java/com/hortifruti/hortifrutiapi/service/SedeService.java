@@ -23,6 +23,7 @@ public class SedeService {
 
     private final SedeMapper sedeMapper;
 
+    @Transactional
     public List<SedeResponseDTO> buscarTodos() {
         List<Sede> sedes = sedeRepository.findAll();
         List<SedeResponseDTO> listaSedes = new ArrayList<>();
