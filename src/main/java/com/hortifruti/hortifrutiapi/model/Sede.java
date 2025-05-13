@@ -1,8 +1,9 @@
 package com.hortifruti.hortifrutiapi.model;
 
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -32,6 +33,7 @@ public class Sede implements Serializable {
     private String descricao;
 
     @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Venda> vendas = new ArrayList<>();
 
     @OneToMany(mappedBy = "sede", cascade = CascadeType.ALL, orphanRemoval = true)

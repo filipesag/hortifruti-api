@@ -8,6 +8,7 @@ import com.hortifruti.hortifrutiapi.model.Produto;
 import com.hortifruti.hortifrutiapi.model.Sede;
 import com.hortifruti.hortifrutiapi.repository.ProdutoRepository;
 import com.hortifruti.hortifrutiapi.repository.SedeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,11 +28,12 @@ public abstract class EstoqueProdutoMapperAbs {
         }
 
         EstoqueProduto estoque = new EstoqueProduto();
-        estoque.setId(dto.id());
+
         Produto produto = produtoRepository.findById(dto.produtoId())
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
+
         Sede sede = sedeRepository.findById(dto.sedeId())
-                .orElseThrow(() -> new RuntimeException("Sede não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Sede não encontrada"));
 
         estoque.setProduto(produto);
         estoque.setSede(sede);
