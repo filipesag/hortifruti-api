@@ -27,17 +27,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProdutoService {
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    private FornecedorRepository fornecedorRepository;
+    private final FornecedorRepository fornecedorRepository;
 
-    @Autowired
-    private SedeRepository sedeRepository;
+    private final SedeRepository sedeRepository;
 
-    @Autowired
-    private EstoqueProdutoRepository estoqueProdutoRepository;
+    private final EstoqueProdutoRepository estoqueProdutoRepository;
 
     private final ProdutoMapper produtoMapper;
 

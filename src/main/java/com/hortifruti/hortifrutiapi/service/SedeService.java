@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SedeService {
 
-    @Autowired
-    private SedeRepository sedeRepository;
+
+    private final SedeRepository sedeRepository;
 
     private final SedeMapper sedeMapper;
 

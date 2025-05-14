@@ -8,7 +8,6 @@ import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import com.hortifruti.hortifrutiapi.repository.FornecedorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FornecedorService {
 
-    @Autowired
-    private FornecedorRepository fornecedorRepository;
+
+    private final FornecedorRepository fornecedorRepository;
 
     private final FornecedorMapper fornecedorMapper;
 

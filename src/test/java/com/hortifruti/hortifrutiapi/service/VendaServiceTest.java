@@ -188,7 +188,6 @@ class VendaServiceTest {
     @Test
     @DisplayName("Deve abrir venda com valores padrão quando dados não forem fornecidos")
     void abreVendaComDadosNulosERetornaValorPadrao() {
-        // Arrange
         UUID formatoId = UUID.randomUUID();
         UUID formaPagamentoId = UUID.randomUUID();
         UUID vendaId = UUID.randomUUID();
@@ -234,7 +233,6 @@ class VendaServiceTest {
 
         Sede sede = new Sede(sedeId, "Sede Teste", "Endereço", "Bairro", "123", "Cidade", "UF", "TIPO", null, null);
 
-        // Configuração dos mocks
         when(formatoVendaRepository.findById(formatoId)).thenReturn(Optional.of(formato));
         when(vendaRepository.save(any(Venda.class))).thenReturn(vendaSalva);
         when(sedeRepository.findById(sedeId)).thenReturn(Optional.of(sede));
@@ -242,10 +240,8 @@ class VendaServiceTest {
         when(balanceteOperacaoVendaRepository.save(any(BalanceteOperacaoVenda.class))).thenReturn(balanceteSalvo);
         when(vendaMapper.toDTO(any(Venda.class))).thenReturn(expectedResponse);
 
-        // Act
         VendaResponseDTO responseDTO = vendaService.abreVenda(vendaRequestDTO, balanceteDTO);
 
-        // Assert
         assertNotNull(responseDTO);
         assertEquals(BigDecimal.ZERO, responseDTO.total());
         assertEquals(StatusVenda.ABERTA, responseDTO.statusVenda());
