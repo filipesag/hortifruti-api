@@ -24,32 +24,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class VendaService {
 
-    @Autowired
-    private VendaRepository vendaRepository;
+    private final VendaRepository vendaRepository;
 
-    @Autowired
-    private FormatoVendaRepository formatoVendaRepository;
+    private final FormatoVendaRepository formatoVendaRepository;
 
-    @Autowired
-    private BalanceteOperacaoVendaRepository balanceteOperacaoVendaRepository;
+    private final BalanceteOperacaoVendaRepository balanceteOperacaoVendaRepository;
 
-    @Autowired
-    private SedeRepository sedeRepository;
+    private final SedeRepository sedeRepository;
 
-    @Autowired
-    private FormaPagamentoRepository formaPagamentoRepository;
+    private final FormaPagamentoRepository formaPagamentoRepository;
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    private ItemVendaRepository itemVendaRepository;
+    private final ItemVendaRepository itemVendaRepository;
 
-    @Autowired
-    private EstoqueProdutoRepository estoqueProdutoRepository;
+    private final EstoqueProdutoRepository estoqueProdutoRepository;
 
-    @Autowired
-    private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
+    private final BalanceteOperacaoVendaService balanceteOperacaoVendaService;
 
     private final ItemVendaMapper itemVendaMapper;
 
@@ -70,7 +61,7 @@ public class VendaService {
         venda.setDataVenda(dto.dataVenda() != null ? dto.dataVenda() : Instant.now());
         venda.setStatusVenda(StatusVenda.ABERTA);
         venda.setTotal(dto.total() != null ? dto.total() : BigDecimal.ZERO);
-        venda.setFormatoVenda(formato);
+        venda.setTipo_venda(formato);
         venda.setSede(sede);
         venda = vendaRepository.save(venda);
 

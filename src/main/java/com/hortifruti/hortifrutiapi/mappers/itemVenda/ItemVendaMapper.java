@@ -5,9 +5,11 @@ import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaDTO;
 import com.hortifruti.hortifrutiapi.model.ItemVenda;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 @Mapper(componentModel = "spring")
 public interface ItemVendaMapper {
     @Mapping(target = "venda", ignore = true)

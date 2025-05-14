@@ -1,6 +1,7 @@
 package com.hortifruti.hortifrutiapi.repository;
 
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoEstoqueDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutosEmSedeDTO;
 import com.hortifruti.hortifrutiapi.model.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,23 @@ public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
     WHERE p.nome = :produto
     """)
     List<ProdutoEstoqueDTO> buscaSedeComEstoqueDeProduto(@Param("produto") String produto);
+
+
+    @Query("""
+    SELECT 
+        p.nome AS nomeProduto, 
+        p.unidadeMedida AS unidadeMedida, 
+        e.quantidade AS quantidade
+    FROM Produto p
+    JOIN EstoqueProduto e ON p.id = e.produto.id
+    JOIN Sede s ON s.id = e.sede.id
+    WHERE s.nome = :sede
+    """)
+    List<ProdutosEmSedeDTO> buscaProdutosEmSede(@Param("sede") String nomeSede);
+
+
+
+
+
 
 }

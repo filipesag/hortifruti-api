@@ -8,14 +8,16 @@ import com.hortifruti.hortifrutiapi.mappers.sede.SedeMapper;
 import com.hortifruti.hortifrutiapi.model.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 @Mapper(componentModel = "spring", uses = {SedeMapper.class,FormatoVendaMapper.class, ItemVendaMapper.class})
 public interface VendaMapper {
 
     @Mapping(target = "sede", source = "sedeId")
-    @Mapping(target = "formatoVenda", source = "formatoVendaId")
+    @Mapping(target = "tipo_venda", source = "formatoVendaId")
     Venda toEntity(VendaRequestDTO dto);
 
     VendaResponseDTO toDTO(Venda venda);

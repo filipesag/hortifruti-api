@@ -5,6 +5,7 @@ import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoEstoqueDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutosEmSedeDTO;
 import com.hortifruti.hortifrutiapi.mappers.estoque.EstoqueProdutoMapperAbs;
 import com.hortifruti.hortifrutiapi.mappers.itemVenda.ItemVendaMapper;
 import com.hortifruti.hortifrutiapi.mappers.produto.ProdutoMapper;
@@ -83,6 +84,12 @@ public class ProdutoService {
     public List<ProdutoEstoqueDTO> buscaEstoqueDeProdutoEmSede(String nomeProduto){
         List<ProdutoEstoqueDTO> produtosEmEstoque = produtoRepository.buscaSedeComEstoqueDeProduto(nomeProduto);
         return produtosEmEstoque;
+    }
+
+    @Transactional
+    public List<ProdutosEmSedeDTO> buscaProdutosEmSede(String nomeSede){
+        List<ProdutosEmSedeDTO> produtosEmSede = produtoRepository.buscaProdutosEmSede(nomeSede);
+        return produtosEmSede;
     }
 
 }

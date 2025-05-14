@@ -7,9 +7,11 @@ import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import com.hortifruti.hortifrutiapi.model.Produto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 @Mapper(componentModel = "spring", uses = {FornecedorMapper.class})
 public interface ProdutoMapper {
 

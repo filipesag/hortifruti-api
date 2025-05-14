@@ -8,7 +8,9 @@ import com.hortifruti.hortifrutiapi.model.Venda;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.stereotype.Service;
 
+@Service
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface BalanceteOperacaoMapper {
     @Mapping(target = "id", ignore = true)
