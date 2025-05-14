@@ -6,11 +6,7 @@ import com.hortifruti.hortifrutiapi.mappers.balancete.BalanceteOperacaoMapper;
 import com.hortifruti.hortifrutiapi.model.BalanceteOperacaoVenda;
 import com.hortifruti.hortifrutiapi.repository.BalanceteOperacaoVendaRepository;
 import com.hortifruti.hortifrutiapi.repository.FormaPagamentoRepository;
-import com.hortifruti.hortifrutiapi.model.FormaPagamento;
 import com.hortifruti.hortifrutiapi.model.Venda;
-import com.hortifruti.hortifrutiapi.repository.BalanceteOperacaoVendaRepository;
-import com.hortifruti.hortifrutiapi.repository.FormaPagamentoRepository;
-import com.hortifruti.hortifrutiapi.repository.FormatoVendaRepository;
 import com.hortifruti.hortifrutiapi.repository.VendaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,8 +25,7 @@ public class BalanceteOperacaoVendaService {
 
     private final FormaPagamentoRepository formaPagamentoRepository;
 
-    @Autowired
-    private VendaRepository vendaRepository;
+    private final VendaRepository vendaRepository;
 
     private final BalanceteOperacaoMapper balanceteOperacaoMapper;
 

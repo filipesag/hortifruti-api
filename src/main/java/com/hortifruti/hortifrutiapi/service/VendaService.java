@@ -33,9 +33,6 @@ public class VendaService {
     private final SedeRepository sedeRepository;
 
     private final FormaPagamentoRepository formaPagamentoRepository;
-
-    @Autowired
-    private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
   
     private final ProdutoRepository produtoRepository;
 
@@ -44,7 +41,6 @@ public class VendaService {
     private final EstoqueProdutoRepository estoqueProdutoRepository;
 
     private final BalanceteOperacaoVendaService balanceteOperacaoVendaService;
-
 
     private final ItemVendaMapper itemVendaMapper;
 
