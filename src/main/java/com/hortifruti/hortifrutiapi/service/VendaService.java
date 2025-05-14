@@ -1,18 +1,13 @@
 package com.hortifruti.hortifrutiapi.service;
 
 import com.hortifruti.hortifrutiapi.dto.balancete.BalanceteOperacaoDTO;
-import com.hortifruti.hortifrutiapi.dto.balancete.BalanceteResponseDTO;
-import com.hortifruti.hortifrutiapi.dto.formatoVenda.FormatoVendaDTO;
-import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaDTO;
+import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaAdicionadoDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaResponseDTO;
-import com.hortifruti.hortifrutiapi.mappers.balancete.BalanceteOperacaoMapper;
-import com.hortifruti.hortifrutiapi.mappers.formatoVenda.FormatoVendaMapper;
 import com.hortifruti.hortifrutiapi.mappers.itemVenda.ItemVendaMapper;
 import com.hortifruti.hortifrutiapi.mappers.venda.VendaMapper;
 import com.hortifruti.hortifrutiapi.model.*;
 import com.hortifruti.hortifrutiapi.model.enums.StatusVenda;
-import com.hortifruti.hortifrutiapi.model.enums.TipoFormatoVenda;
 import com.hortifruti.hortifrutiapi.repository.*;
 import com.hortifruti.hortifrutiapi.service.exceptions.EstoqueInsuficienteException;
 import jakarta.persistence.EntityNotFoundException;
@@ -20,48 +15,42 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class VendaService {
 
-    @Autowired
-    private VendaRepository vendaRepository;
+    private final VendaRepository vendaRepository;
 
-    @Autowired
-    private FormatoVendaRepository formatoVendaRepository;
+    private final FormatoVendaRepository formatoVendaRepository;
 
-    @Autowired
-    private BalanceteOperacaoVendaRepository balanceteOperacaoVendaRepository;
+    private final BalanceteOperacaoVendaRepository balanceteOperacaoVendaRepository;
 
-    @Autowired
-    private SedeRepository sedeRepository;
+    private final SedeRepository sedeRepository;
+
+    private final FormaPagamentoRepository formaPagamentoRepository;
 
     @Autowired
     private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
+  
+    private final ProdutoRepository produtoRepository;
 
-    @Autowired
-    private ProdutoRepository produtoRepository;
+    private final ItemVendaRepository itemVendaRepository;
 
-    @Autowired
-    private ItemVendaRepository itemVendaRepository;
+    private final EstoqueProdutoRepository estoqueProdutoRepository;
 
-    @Autowired
-    private EstoqueProdutoRepository estoqueProdutoRepository;
+    private final BalanceteOperacaoVendaService balanceteOperacaoVendaService;
 
 
     private final ItemVendaMapper itemVendaMapper;
 
     private final VendaMapper vendaMapper;
 
-
+    @Transactional
     public VendaResponseDTO abreVenda(VendaRequestDTO dto, BalanceteOperacaoDTO dtoBalancete) {
         FormatoVenda formato = formatoVendaRepository.findById(dto.formatoVendaId())
                 .orElseThrow(() -> new EntityNotFoundException("Formato de venda não encontrado"));
@@ -76,7 +65,7 @@ public class VendaService {
         venda.setDataVenda(dto.dataVenda() != null ? dto.dataVenda() : Instant.now());
         venda.setStatusVenda(StatusVenda.ABERTA);
         venda.setTotal(dto.total() != null ? dto.total() : BigDecimal.ZERO);
-        venda.setFormatoVenda(formato);
+        venda.setTipo_venda(formato);
         venda.setSede(sede);
         venda = vendaRepository.save(venda);
 
@@ -90,7 +79,7 @@ public class VendaService {
     }
 
     @Transactional
-    public VendaResponseDTO adicionarItensAVenda(UUID vendaId, List<ItemVendaDTO> itensDTO) {
+    public VendaResponseDTO adicionarItensAVenda(UUID vendaId, List<ItemVendaAdicionadoDTO> itensDTO) {
         Venda venda = vendaRepository.findById(vendaId)
                 .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
 
@@ -104,15 +93,15 @@ public class VendaService {
 
         BigDecimal totalVenda = venda.getTotal() != null ? venda.getTotal() : BigDecimal.ZERO;
 
-        for (ItemVendaDTO itemDTO : itensDTO) {
+        for (ItemVendaAdicionadoDTO itemDTO : itensDTO) {
             Produto produto = produtoRepository.findById(itemDTO.produtoId())
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não encontrado: " + itemDTO.produtoId()));
+
             EstoqueProduto estoque = estoqueProdutoRepository
                     .findByProdutoAndSede(produto, venda.getSede())
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não disponível na sede"));
-
             if (estoque.getQuantidade() < itemDTO.quantidade()) {
                 throw new EstoqueInsuficienteException();
             }
@@ -136,12 +125,27 @@ public class VendaService {
                             .multiply(BigDecimal.valueOf(itemVenda.getQuantidade()))
             );
         }
-
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);
-
         return vendaMapper.toDTO(venda);
     }
 
 
+    @Transactional
+    public VendaResponseDTO aprovaVenda(UUID vendaId) {
+        Venda venda = vendaRepository.findById(vendaId).orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
+        venda.setStatusVenda(StatusVenda.APROVADA);
+        UUID balanceteId = venda.getBalanceteOperacaoVenda().getId();
+        balanceteOperacaoVendaService.fechaBalancete(balanceteId,vendaId);
+        return vendaMapper.toDTO(venda);
+    }
+
+    @Transactional
+    public VendaResponseDTO cancelaVenda(UUID vendaId) {
+        Venda venda = vendaRepository.findById(vendaId).orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
+        venda.setStatusVenda(StatusVenda.CANCELADA);
+        UUID balanceteId = venda.getBalanceteOperacaoVenda().getId();
+        balanceteOperacaoVendaService.zeraBalancete(balanceteId,vendaId);
+        return vendaMapper.toDTO(venda);
+    }
 }

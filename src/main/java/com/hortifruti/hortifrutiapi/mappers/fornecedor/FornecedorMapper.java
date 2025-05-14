@@ -5,7 +5,9 @@ import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorResponseDTO;
 import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Service;
 
+@Service
 @Mapper(componentModel = "spring")
 public interface FornecedorMapper {
     @Mapping(target = "nome", source = "nome")

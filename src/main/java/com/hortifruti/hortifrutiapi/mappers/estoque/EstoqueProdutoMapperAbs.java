@@ -11,8 +11,9 @@ import com.hortifruti.hortifrutiapi.repository.SedeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 @Mapper(componentModel = "spring")
 public abstract class EstoqueProdutoMapperAbs {
 

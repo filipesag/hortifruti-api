@@ -5,7 +5,9 @@ import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
 import com.hortifruti.hortifrutiapi.model.Sede;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.stereotype.Service;
 
+@Service
 @Mapper(componentModel = "spring")
 public interface SedeMapper {
     @Mapping(target = "nome", source = "nome")

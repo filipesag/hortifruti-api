@@ -15,6 +15,6 @@ public record VendaResponseDTO(
         BigDecimal total,
         StatusVenda statusVenda,
         SedeResponseDTO sede,
-        FormatoVendaDTO formatoVenda,
+        FormatoVendaDTO tipo_venda,
         List<ItemVendaDTO> itens
 ) {}

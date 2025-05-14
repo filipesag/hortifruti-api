@@ -29,6 +29,6 @@ public class FormatoVenda implements Serializable {
     @Enumerated(EnumType.STRING)
     private TipoFormatoVenda tipo;
 
-    @OneToMany(mappedBy = "formatoVenda", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Venda> formatoVendas = new HashSet<>();
+    @OneToMany(mappedBy = "tipo_venda", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Venda> tipo_venda = new HashSet<>();
 }

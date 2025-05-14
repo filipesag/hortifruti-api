@@ -2,8 +2,10 @@ package com.hortifruti.hortifrutiapi.controller;
 
 import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.estoque.EstoqueProdutoResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutoEstoqueDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutosEmSedeDTO;
 import com.hortifruti.hortifrutiapi.model.Produto;
 import com.hortifruti.hortifrutiapi.service.ProdutoService;
 import jakarta.validation.Valid;
@@ -23,8 +25,8 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @GetMapping
-    public List<Produto> buscarTodos(){
-        List<Produto> produtos = produtoService.buscarTodos();
+    public List<ProdutoResponseDTO> buscarTodos(){
+        List<ProdutoResponseDTO> produtos = produtoService.buscarTodos();
         return produtos;
     }
 
@@ -48,5 +50,17 @@ public class ProdutoController {
                 .buildAndExpand(estoqueCriado.id())
                 .toUri();
         return ResponseEntity.created(uri).body(estoqueCriado);
+    }
+
+    @GetMapping("/produtos-estoque")
+    public List<ProdutoEstoqueDTO> buscaProdutoEstoqueEmSede(@RequestParam String nomeProduto) {
+        List<ProdutoEstoqueDTO> produtoEstoque = produtoService.buscaEstoqueDeProdutoEmSede(nomeProduto);
+        return produtoEstoque;
+    }
+
+    @GetMapping("/produtos-em-sede")
+    public List<ProdutosEmSedeDTO> buscaProdutosEmSede(@RequestParam String nomeSede) {
+        List<ProdutosEmSedeDTO> produtoEstoque = produtoService.buscaProdutosEmSede(nomeSede);
+        return produtoEstoque;
     }
 }

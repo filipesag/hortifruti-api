@@ -49,7 +49,7 @@ public class Venda implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "formato_venda_id", nullable = false)
-    private FormatoVenda formatoVenda;
+    private FormatoVenda tipo_venda;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemVenda> itens = new ArrayList<>();
