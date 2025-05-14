@@ -34,6 +34,9 @@ public class VendaService {
 
     private final FormaPagamentoRepository formaPagamentoRepository;
 
+    @Autowired
+    private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
+  
     private final ProdutoRepository produtoRepository;
 
     private final ItemVendaRepository itemVendaRepository;
@@ -41,6 +44,7 @@ public class VendaService {
     private final EstoqueProdutoRepository estoqueProdutoRepository;
 
     private final BalanceteOperacaoVendaService balanceteOperacaoVendaService;
+
 
     private final ItemVendaMapper itemVendaMapper;
 
@@ -65,17 +69,12 @@ public class VendaService {
         venda.setSede(sede);
         venda = vendaRepository.save(venda);
 
-        BalanceteOperacaoVenda balancete = new BalanceteOperacaoVenda();
-        balancete.setDataReceita(dtoBalancete.dataReceita() != null ? dtoBalancete.dataReceita() : Instant.now());
-        balancete.setValorReceita(dtoBalancete.valorReceita() != null ? dtoBalancete.valorReceita() : BigDecimal.ZERO);
-        balancete.setFormaPagamento(formaPagamentoRepository.findById(dtoBalancete.formaPagamentoId())
-                .orElseThrow(() -> new EntityNotFoundException("Forma de pagamento não encontrada")));
+        BalanceteOperacaoVenda balancete = balanceteOperacaoVendaService.criaBalancete(dtoBalancete);
         balancete.setVenda(venda);
-        balancete = balanceteOperacaoVendaRepository.save(balancete);
+        balanceteOperacaoVendaRepository.save(balancete);
 
         venda.setBalanceteOperacaoVenda(balancete);
         venda = vendaRepository.save(venda);
-
         return vendaMapper.toDTO(venda);
     }
 
@@ -103,7 +102,6 @@ public class VendaService {
                     .findByProdutoAndSede(produto, venda.getSede())
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não disponível na sede"));
-
             if (estoque.getQuantidade() < itemDTO.quantidade()) {
                 throw new EstoqueInsuficienteException();
             }
@@ -127,10 +125,8 @@ public class VendaService {
                             .multiply(BigDecimal.valueOf(itemVenda.getQuantidade()))
             );
         }
-
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);
-
         return vendaMapper.toDTO(venda);
     }
 
