@@ -73,15 +73,4 @@ public class ProdutoService {
         estoqueProdutoRepository.save(estoque);
         return estoqueProdutoMapper.toDTO(estoque);
     }
-
-//    public List<ItemVendaDTO> adicionaProdutoVenda(List<ItemVendaDTO> itens){
-//        List<ItemVenda> itensVenda = new ArrayList<>();
-//        for(ItemVendaDTO item : itens) {
-//            itensVenda.add(itemVendaMapper.toEntity(item));
-//        }
-//    }
-
-
-
-
 }

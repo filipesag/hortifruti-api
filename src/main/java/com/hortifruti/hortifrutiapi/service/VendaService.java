@@ -45,7 +45,7 @@ public class VendaService {
     private SedeRepository sedeRepository;
 
     @Autowired
-    private FormaPagamentoRepository formaPagamentoRepository;
+    private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -55,6 +55,7 @@ public class VendaService {
 
     @Autowired
     private EstoqueProdutoRepository estoqueProdutoRepository;
+
 
     private final ItemVendaMapper itemVendaMapper;
 
@@ -79,23 +80,17 @@ public class VendaService {
         venda.setSede(sede);
         venda = vendaRepository.save(venda);
 
-        BalanceteOperacaoVenda balancete = new BalanceteOperacaoVenda();
-        balancete.setDataReceita(dtoBalancete.dataReceita() != null ? dtoBalancete.dataReceita() : Instant.now());
-        balancete.setValorReceita(dtoBalancete.valorReceita() != null ? dtoBalancete.valorReceita() : BigDecimal.ZERO);
-        balancete.setFormaPagamento(formaPagamentoRepository.findById(dtoBalancete.formaPagamentoId())
-                .orElseThrow(() -> new EntityNotFoundException("Forma de pagamento não encontrada")));
+        BalanceteOperacaoVenda balancete = balanceteOperacaoVendaService.criaBalancete(dtoBalancete);
         balancete.setVenda(venda);
-        balancete = balanceteOperacaoVendaRepository.save(balancete);
+        balanceteOperacaoVendaRepository.save(balancete);
 
         venda.setBalanceteOperacaoVenda(balancete);
         venda = vendaRepository.save(venda);
-
         return vendaMapper.toDTO(venda);
     }
 
     @Transactional
     public VendaResponseDTO adicionarItensAVenda(UUID vendaId, List<ItemVendaDTO> itensDTO) {
-        // 1. Buscar a venda (deve estar com status ABERTA)
         Venda venda = vendaRepository.findById(vendaId)
                 .orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
 
@@ -103,7 +98,6 @@ public class VendaService {
             throw new IllegalStateException("Não é possível adicionar produtos a uma venda fechada");
         }
 
-        // 2. Verificar se a venda tem uma sede associada (necessária para controle de estoque)
         if (venda.getSede() == null) {
             throw new IllegalStateException("A venda deve estar associada a uma sede para adicionar produtos");
         }
@@ -111,12 +105,9 @@ public class VendaService {
         BigDecimal totalVenda = venda.getTotal() != null ? venda.getTotal() : BigDecimal.ZERO;
 
         for (ItemVendaDTO itemDTO : itensDTO) {
-            // 3. Para cada item, buscar o produto e verificar estoque
             Produto produto = produtoRepository.findById(itemDTO.produtoId())
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não encontrado: " + itemDTO.produtoId()));
-
-            // 4. Verificar estoque na sede específica
             EstoqueProduto estoque = estoqueProdutoRepository
                     .findByProdutoAndSede(produto, venda.getSede())
                     .orElseThrow(() -> new EntityNotFoundException(
@@ -126,38 +117,29 @@ public class VendaService {
                 throw new EstoqueInsuficienteException();
             }
 
-            // 5. Criar o item de venda
             ItemVenda itemVenda = itemVendaMapper.toEntity(itemDTO);
             itemVenda.setVenda(venda);
             itemVenda.setProduto(produto);
 
-            // Se preço unitário não foi informado, usar o preço do produto
             if (itemVenda.getPrecoUnit() == null) {
                 itemVenda.setPrecoUnit(produto.getPreco().doubleValue());
             }
 
-            // 6. Atualizar estoque
             estoque.setQuantidade(estoque.getQuantidade() - itemDTO.quantidade());
             estoqueProdutoRepository.save(estoque);
 
-            // 7. Salvar item de venda
             itemVenda = itemVendaRepository.save(itemVenda);
-
-            // Adicionar à lista de itens da venda
             venda.getItens().add(itemVenda);
 
-            // 8. Atualizar total da venda
             totalVenda = totalVenda.add(
                     BigDecimal.valueOf(itemVenda.getPrecoUnit())
                             .multiply(BigDecimal.valueOf(itemVenda.getQuantidade()))
             );
         }
 
-        // 9. Atualizar venda com novo total
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);
 
-        // 10. Retornar a venda atualizada
         return vendaMapper.toDTO(venda);
     }
 
