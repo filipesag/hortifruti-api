@@ -61,7 +61,7 @@ class VendaServiceTest {
 
     @Test
     @DisplayName("Deve abrir venda com sucesso quando todos os dados são válidos")
-    void abreVendaSucesso() {
+    void abreVendaSucesso()  {
         UUID formatoId = UUID.randomUUID();
         UUID formaPagamentoId = UUID.randomUUID();
         UUID sedeId = UUID.randomUUID();

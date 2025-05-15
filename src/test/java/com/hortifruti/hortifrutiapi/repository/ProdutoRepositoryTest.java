@@ -74,7 +74,7 @@ class ProdutoRepositoryTest {
 
     @Test
     @DisplayName("Deve retornar a sede com estoque do produto informado")
-    void buscaSedeComEstoqueDeProdutoSucesso() {
+    void buscaSedeComEstoqueDeProduto() {
         List<ProdutoEstoqueDTO> resultado = produtoRepository.buscaSedeComEstoqueDeProduto("Maçã");
 
         assertThat(resultado).hasSize(1);
