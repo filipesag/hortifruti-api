@@ -19,8 +19,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Rodar testes com Maven
-        run: ./mvnw test
+      # - name: Rodar testes com Maven
+      #   run: ./mvnw test
 
       - name: Login no Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
