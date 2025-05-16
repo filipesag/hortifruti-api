@@ -264,11 +264,49 @@ class VendaServiceTest {
     @Test
     @DisplayName("Deve aprovar venda com sucesso")
     void aprovaVenda() {
+        FormatoVenda formato = criarFormato(formatoId);
+        Sede sede = criarSede(sedeId);
+        FormaPagamento formaPagamento = criarFormaPagamento(formaPagamentoId);
+        Venda venda = criarVenda(vendaId, formato, sede,null);
+        BalanceteOperacaoVenda balancete = criarBalancete(formaPagamento, venda);
+        VendaResponseDTO expectedResponse = vendaAprovadaResponseEsperado();
+        venda.setBalanceteOperacaoVenda(balancete);
+
+        when(vendaRepository.findById(vendaId)).thenReturn(Optional.of(venda));
+        when(vendaMapper.toDTO(venda)).thenReturn(expectedResponse);
+
+        VendaResponseDTO response = vendaService.aprovaVenda(vendaId);
+
+        assertNotNull(response);
+        assertEquals(expectedResponse.dataVenda(), response.dataVenda());
+        assertEquals(expectedResponse.total(), response.total());
+        assertEquals(expectedResponse.statusVenda(), response.statusVenda());
+        assertEquals(expectedResponse.tipo_venda().id(), response.tipo_venda().id());
+        assertEquals(expectedResponse.sede().id(), response.sede().id());
     }
 
     @Test
     @DisplayName("Deve cancelar a venda com sucesso")
     void cancelaVenda() {
+        FormatoVenda formato = criarFormato(formatoId);
+        Sede sede = criarSede(sedeId);
+        FormaPagamento formaPagamento = criarFormaPagamento(formaPagamentoId);
+        Venda venda = criarVenda(vendaId, formato, sede,null);
+        BalanceteOperacaoVenda balancete = criarBalancete(formaPagamento, venda);
+        VendaResponseDTO expectedResponse = vendaCanceladaResponseEsperado();
+        venda.setBalanceteOperacaoVenda(balancete);
+
+        when(vendaRepository.findById(vendaId)).thenReturn(Optional.of(venda));
+        when(vendaMapper.toDTO(venda)).thenReturn(expectedResponse);
+
+        VendaResponseDTO response = vendaService.cancelaVenda(vendaId);
+
+        assertNotNull(response);
+        assertEquals(expectedResponse.dataVenda(), response.dataVenda());
+        assertEquals(expectedResponse.total(), response.total());
+        assertEquals(expectedResponse.statusVenda(), response.statusVenda());
+        assertEquals(expectedResponse.tipo_venda().id(), response.tipo_venda().id());
+        assertEquals(expectedResponse.sede().id(), response.sede().id());
     }
 
     private FormatoVenda criarFormato(UUID id) {
@@ -309,6 +347,30 @@ class VendaServiceTest {
                 Instant.now(),
                 BigDecimal.valueOf(258),
                 StatusVenda.ABERTA,
+                new SedeResponseDTO(sedeId, "Sede Teste", "Rua A", "Bairro A", "123", "Cidade X", "UF", "PRINCIPAL"),
+                new FormatoVendaDTO(formatoId, TipoFormatoVenda.FISICA),
+                List.of()
+        );
+    }
+
+    private VendaResponseDTO vendaAprovadaResponseEsperado() {
+        return new VendaResponseDTO(
+                vendaId,
+                Instant.now(),
+                BigDecimal.valueOf(258),
+                StatusVenda.APROVADA,
+                new SedeResponseDTO(sedeId, "Sede Teste", "Rua A", "Bairro A", "123", "Cidade X", "UF", "PRINCIPAL"),
+                new FormatoVendaDTO(formatoId, TipoFormatoVenda.FISICA),
+                List.of()
+        );
+    }
+
+    private VendaResponseDTO vendaCanceladaResponseEsperado() {
+        return new VendaResponseDTO(
+                vendaId,
+                Instant.now(),
+                BigDecimal.valueOf(258),
+                StatusVenda.CANCELADA,
                 new SedeResponseDTO(sedeId, "Sede Teste", "Rua A", "Bairro A", "123", "Cidade X", "UF", "PRINCIPAL"),
                 new FormatoVendaDTO(formatoId, TipoFormatoVenda.FISICA),
                 List.of()
