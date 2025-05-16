@@ -23,6 +23,7 @@ public class FornecedorService {
 
     private final FornecedorMapper fornecedorMapper;
 
+    @Transactional
     public List<FornecedorResponseDTO> buscarTodos() {
         List<Fornecedor> fornecedores = fornecedorRepository.findAll();
         List<FornecedorResponseDTO> listaFornecedores = new ArrayList<>();
@@ -40,6 +41,7 @@ public class FornecedorService {
         return fornecedorMapper.toDTO(novoFornecedor);
     }
 
+    @Transactional
     public FornecedorResponseDTO rescindeContrato(UUID id, FornecedorUpdateDTO dto) {
         Optional<Fornecedor> fornecedor = fornecedorRepository.findById(id);
         Fornecedor fornecedorCancelado = fornecedor.get();
@@ -47,6 +49,7 @@ public class FornecedorService {
         return fornecedorMapper.toDTO(fornecedorRepository.save(fornecedorCancelado));
     }
 
+    @Transactional
     public FornecedorResponseDTO atualizaFornecedor(UUID id, FornecedorUpdateDTO dto) {
         Optional<Fornecedor> fornecedor = fornecedorRepository.findById(id);
         Fornecedor fornecedorAtualizado = fornecedor.get();

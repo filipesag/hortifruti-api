@@ -6,14 +6,12 @@ import com.hortifruti.hortifrutiapi.dto.produto.ProdutoEstoqueDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutoResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.produto.ProdutosEmSedeDTO;
-import com.hortifruti.hortifrutiapi.model.Produto;
 import com.hortifruti.hortifrutiapi.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
 

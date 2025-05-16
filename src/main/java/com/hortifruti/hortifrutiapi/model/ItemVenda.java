@@ -6,14 +6,17 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Table(name = "item_venda")
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
+@Data
 public class ItemVenda implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +31,7 @@ public class ItemVenda implements Serializable {
     @NotNull
     @Min(0)
     @Column(name = "preco_unit")
-    private Double precoUnit;
+    private BigDecimal precoUnit;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venda_id", nullable = false)

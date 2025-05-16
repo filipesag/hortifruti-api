@@ -13,6 +13,7 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Sede implements Serializable {
     private static final long serialVersionUID = 1L;
 

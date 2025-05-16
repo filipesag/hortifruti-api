@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/balancete")
 public class BalanceteOperacaoVendaController {
+
     @Autowired
     private BalanceteOperacaoVendaService balanceteOperacaoVendaService;
 

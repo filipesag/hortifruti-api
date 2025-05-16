@@ -2,7 +2,6 @@ package com.hortifruti.hortifrutiapi.controller;
 
 import com.hortifruti.hortifrutiapi.dto.sede.SedeRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
-import com.hortifruti.hortifrutiapi.model.Sede;
 import com.hortifruti.hortifrutiapi.service.SedeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

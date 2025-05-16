@@ -10,7 +10,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "estoque_produto",
         uniqueConstraints = @UniqueConstraint(columnNames = {"produto_id", "sede_id"}))
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class EstoqueProduto implements Serializable {
     private static final long serialVersionUID = 1L;
 

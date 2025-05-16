@@ -4,16 +4,12 @@ import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorContratoCanceladoDT
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.fornecedor.FornecedorUpdateDTO;
-import com.hortifruti.hortifrutiapi.dto.sede.SedeRequestDTO;
-import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
-import com.hortifruti.hortifrutiapi.model.Fornecedor;
 import com.hortifruti.hortifrutiapi.service.FornecedorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import java.net.URI;
 import java.util.List;
 import java.util.UUID;

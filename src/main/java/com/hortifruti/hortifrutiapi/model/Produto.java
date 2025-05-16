@@ -12,6 +12,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "produto")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 public class Produto implements Serializable {
     private static final long serialVersionUID = 1L;

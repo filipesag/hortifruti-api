@@ -9,6 +9,7 @@ import com.hortifruti.hortifrutiapi.repository.FormaPagamentoRepository;
 import com.hortifruti.hortifrutiapi.model.Venda;
 import com.hortifruti.hortifrutiapi.repository.VendaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
@@ -29,6 +30,7 @@ public class BalanceteOperacaoVendaService {
 
     private final BalanceteOperacaoMapper balanceteOperacaoMapper;
 
+    @Transactional
     public List<BalanceteResponseDTO> buscarTodos() {
         List<BalanceteOperacaoVenda> balanceteOperacaoVendas = balanceteOperacaoVendaRepository.findAll();
         List<BalanceteResponseDTO> listaBalancetes = new ArrayList<>();
@@ -37,8 +39,8 @@ public class BalanceteOperacaoVendaService {
         }
         return listaBalancetes;
     }
-  
 
+    @Transactional
     public BalanceteOperacaoVenda criaBalancete(BalanceteOperacaoDTO dto){
         BalanceteOperacaoVenda balancete = new BalanceteOperacaoVenda();
         balancete.setDataReceita(dto.dataReceita() != null ? dto.dataReceita() : Instant.now());
@@ -47,7 +49,8 @@ public class BalanceteOperacaoVendaService {
                 .orElseThrow(() -> new EntityNotFoundException("Forma de pagamento não encontrada")));
         return balancete;
     }
-  
+
+    @Transactional
     public BalanceteResponseDTO fechaBalancete(UUID balanceteId, UUID vendaId) {
         BalanceteOperacaoVenda balancete = balanceteOperacaoVendaRepository.findById(balanceteId)
                 .orElseThrow(() -> new EntityNotFoundException("Balancete não encontrado"));
@@ -61,6 +64,7 @@ public class BalanceteOperacaoVendaService {
         return balanceteOperacaoMapper.toResponseDTO(balancete);
     }
 
+    @Transactional
     public BalanceteResponseDTO zeraBalancete(UUID balanceteId, UUID vendaId) {
         BalanceteOperacaoVenda balancete = balanceteOperacaoVendaRepository.findById(balanceteId)
                 .orElseThrow(() -> new EntityNotFoundException("Balancete não encontrado"));
@@ -70,6 +74,7 @@ public class BalanceteOperacaoVendaService {
         return balanceteOperacaoMapper.toResponseDTO(balancete);
     }
 
+    @Transactional
     public BigDecimal calculaValorLiquido(BigDecimal taxa, BigDecimal valorTotal){
         BigDecimal valortaxa = taxa.divide(BigDecimal.valueOf(100)).multiply(valorTotal);
         BigDecimal valorLiquidoFinal = valorTotal.subtract(valortaxa);

@@ -31,8 +31,6 @@ public class VendaService {
     private final BalanceteOperacaoVendaRepository balanceteOperacaoVendaRepository;
 
     private final SedeRepository sedeRepository;
-
-    private final FormaPagamentoRepository formaPagamentoRepository;
   
     private final ProdutoRepository produtoRepository;
 
@@ -99,16 +97,12 @@ public class VendaService {
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não disponível na sede"));
             if (estoque.getQuantidade() < itemDTO.quantidade()) {
-                throw new EstoqueInsuficienteException();
+                throw new EstoqueInsuficienteException("Estoque insuficiente para o produto: " + produto.getNome());
             }
 
             ItemVenda itemVenda = itemVendaMapper.toEntity(itemDTO);
             itemVenda.setVenda(venda);
             itemVenda.setProduto(produto);
-
-            if (itemVenda.getPrecoUnit() == null) {
-                itemVenda.setPrecoUnit(produto.getPreco().doubleValue());
-            }
 
             estoque.setQuantidade(estoque.getQuantidade() - itemDTO.quantidade());
             estoqueProdutoRepository.save(estoque);
@@ -117,9 +111,8 @@ public class VendaService {
             venda.getItens().add(itemVenda);
 
             totalVenda = totalVenda.add(
-                    BigDecimal.valueOf(itemVenda.getPrecoUnit())
-                            .multiply(BigDecimal.valueOf(itemVenda.getQuantidade()))
-            );
+                    itemVenda.getPrecoUnit().multiply(BigDecimal.valueOf(itemVenda.getQuantidade())));
+
         }
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);

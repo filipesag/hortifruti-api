@@ -39,8 +39,6 @@ public class ProdutoService {
 
     private final EstoqueProdutoMapperAbs estoqueProdutoMapper;
 
-    private final ItemVendaMapper itemVendaMapper;
-
     @Transactional
     public List<ProdutoResponseDTO> buscarTodos() {
         List<Produto> produtos = produtoRepository.findAll();
