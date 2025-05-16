@@ -7,26 +7,26 @@ CREATE TABLE formato_venda (
 
 CREATE TABLE forma_pagamento (
     id UUID PRIMARY KEY,
-    descricao VARCHAR(100) NOT NULL,
+    descricao VARCHAR(50) NOT NULL,
     valor_taxa_compra DECIMAL(10,2) NOT NULL
 );
 
 CREATE TABLE sede (
     id UUID PRIMARY KEY,
-    nome VARCHAR(150) NOT NULL,
-    bairro VARCHAR(100) NOT NULL,
-    cidade VARCHAR(100) NOT NULL,
+    nome VARCHAR(80) NOT NULL,
+    bairro VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
     estado VARCHAR(2) NOT NULL,
     rua VARCHAR(150) NOT NULL,
-    numero VARCHAR(20) NOT NULL,
+    numero VARCHAR(6) NOT NULL,
     descricao TEXT
 );
 
 CREATE TABLE fornecedor (
     id UUID PRIMARY KEY,
-    nome VARCHAR(150) NOT NULL,
-    cidade VARCHAR(100) NOT NULL,
-    estado VARCHAR(2) NOT NULL,
+    nome VARCHAR(80) NOT NULL,
+    cidade VARCHAR(50) NOT NULL,
+    estado VARCHAR(50) NOT NULL,
     cnpj VARCHAR(14) NOT NULL,
     telefone VARCHAR(15),
     email VARCHAR(100),
