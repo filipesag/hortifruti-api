@@ -59,6 +59,6 @@ jobs:
       
             cd hortifruti-api
       
-            docker pull filipesag/hortifruti-api:latest
+            sudo docker pull filipesag/hortifruti-api:latest
       
-            docker-compose -f docker-compose.prod.yml up -d --remove-orphans
+            sudo docker-compose -f docker-compose.prod.yml up -d --remove-orphans
