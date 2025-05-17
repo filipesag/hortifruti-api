@@ -24,7 +24,7 @@ jobs:
 
       - name: Aguardando aplicação Docker Compose subir
         run: |
-            timeout=120
+            timeout=250
             count=0
             echo "Esperando aplicação subir..."
             until curl -s http://localhost:8080/actuator/health | grep '"status": "UP"' > /dev/null; do
