@@ -19,9 +19,21 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Rodar testes unitários com Maven
-        run: mvn -Dtest=VendaServiceTest test
-             mvn -Dtest=ProdutoRepositoryTest test
+      - name: Subir ambiente de desenvolvimento com Docker Compose
+        run: docker-compose -f docker-compose.dev.yml up -d
+
+      - name: Aguardando aplicação Docker Compose subir
+        run: |
+          echo "Esperando aplicação subir..."
+          until curl -s http://localhost:8080/actuator/health | grep '"status":"UP"' > /dev/null; do
+            sleep 5
+          done
+
+      - name: Execução dos testes unitários e integração
+        run: mvn test
+
+      - name: Parando aplicação docker
+        run: docker-compose -f docker-compose.dev.yml down
 
       - name: Login no Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
