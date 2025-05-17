@@ -134,4 +134,4 @@ INSERT INTO item_venda (id, venda_id, produto_id, quantidade, preco_unit) VALUES
 -- Inserir balancete
 INSERT INTO balancete_operacao (id, data_receita, valor_receita, forma_pagamento_id, venda_id) VALUES
 ('1bb277c0-526d-4ce0-b40c-538d126f11c2','2025-05-13 10:00:00',20.20,'47b96c6f-e217-4e27-99cc-0f1a574c9bcb','a1b2c3d4-e5f6-4789-abcd-1234567890ab');
--- Fim do script
+

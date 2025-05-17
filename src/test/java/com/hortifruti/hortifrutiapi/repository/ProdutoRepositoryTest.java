@@ -39,7 +39,6 @@ class ProdutoRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        // Cria e persiste o fornecedor
         Fornecedor fornecedor = Fornecedor.builder()
                 .cnpj("95777462000126")
                 .estado("Minas Gerais")
@@ -50,7 +49,6 @@ class ProdutoRepositoryTest {
                 .build();
         entityManager.persist(fornecedor);
 
-        // Cria e persiste o produto
         produto = Produto.builder()
                 .nome("Maçã")
                 .unidadeMedida("KG")
@@ -59,7 +57,6 @@ class ProdutoRepositoryTest {
                 .build();
         entityManager.persist(produto);
 
-        // Cria e persiste a sede
         sede = Sede.builder()
                 .nome("Sede Central")
                 .rua("Rua Teste")
@@ -70,7 +67,6 @@ class ProdutoRepositoryTest {
                 .build();
         entityManager.persist(sede);
 
-        // Cria e persiste o estoque
         EstoqueProduto estoqueProduto = EstoqueProduto.builder()
                 .produto(produto)
                 .sede(sede)
@@ -89,10 +85,8 @@ class ProdutoRepositoryTest {
     @Test
     @DisplayName("Deve retornar a sede com estoque do produto informado")
     void buscaSedeComEstoqueDeProduto() {
-        // Act
         List<ProdutoEstoqueDTO> resultado = produtoRepository.buscaSedeComEstoqueDeProduto("Maçã");
 
-        // Assert
         assertThat(resultado)
                 .hasSize(1)
                 .first()
@@ -107,10 +101,8 @@ class ProdutoRepositoryTest {
     @Test
     @DisplayName("Deve retornar produtos presentes em determinada Sede")
     void buscaProdutosEmSede() {
-        // Act
         List<ProdutosEmSedeDTO> resultado = produtoRepository.buscaProdutosEmSede("Sede Central");
 
-        // Assert
         assertThat(resultado)
                 .hasSize(1)
                 .first()
