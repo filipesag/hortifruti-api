@@ -61,4 +61,8 @@ jobs:
       
             sudo docker pull filipesag/hortifruti-api:latest
       
-            sudo docker-compose -f docker-compose.prod.yml up -d --remove-orphans
+            export RDS_ENDPOINT="${{ secrets.RDS_ENDPOINT }}"
+            export RDS_USERNAME="${{ secrets.RDS_USERNAME }}"
+            export RDS_PASSWORD="${{ secrets.RDS_PASSWORD }}"
+      
+            sudo RDS_ENDPOINT="$RDS_ENDPOINT" RDS_USERNAME="$RDS_USERNAME" RDS_PASSWORD="$RDS_PASSWORD" docker-compose -f docker-compose.prod.yml up -d --remove-orphans
