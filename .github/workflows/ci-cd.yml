@@ -24,7 +24,7 @@ jobs:
         
       - name: Aguardando aplicação Docker Compose subir
         run: |
-          echo "Esperando aplicação subir (até 5 minutos)..."
+          echo "Esperando aplicação subir"
           for i in {1..60}; do
             echo "Tentativa $i..."
             if curl -s http://localhost:8080/actuator/health | grep '"status":"UP"' > /dev/null; then
@@ -33,14 +33,14 @@ jobs:
             fi
             sleep 5
             if [ $i -eq 60 ]; then
-              echo "Timeout após 5 minutos esperando a aplicação subir."
+              echo "Timeout"
               docker compose -f docker-compose.dev.yml ps
               docker logs $(docker ps --filter "name=app" -q)
               exit 1
             fi
           done
        
-      - name: Execução dos testes unitários e integração
+      - name: Execução dos testes unitários e testes de integração
         run: mvn test
 
       - name: Parando aplicação docker
