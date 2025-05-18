@@ -24,14 +24,11 @@ public class SedeIntegrationTests {
     @DisplayName("Testanto buscar todas Sedes")
     void testeBuscaTodasSedes() throws IOException {
         Response response = sedeRequest.buscarTodos(specification);
-
         List<SedeRequestResponse> sedeResponse = Arrays.asList(
                 response.then().statusCode(200).extract().body().as(SedeRequestResponse[].class)
         );
-
         assertNotNull(sedeResponse);
         assertEquals("Savassi",sedeResponse.get(0).getBairro());
-
     }
 
 }
