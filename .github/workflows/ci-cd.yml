@@ -28,12 +28,12 @@ jobs:
           for i in {1..60}; do
             echo "Tentativa $i..."
             if curl -s http://localhost:8080/actuator/health | grep '"status":"UP"' > /dev/null; then
-              echo "Aplicação está pronta!"
+              echo "Aplicação pronta!"
               break
             fi
             sleep 5
             if [ $i -eq 60 ]; then
-              echo "Timeout"
+              echo "Timeout!"
               docker compose -f docker-compose.dev.yml ps
               docker logs $(docker ps --filter "name=app" -q)
               exit 1
