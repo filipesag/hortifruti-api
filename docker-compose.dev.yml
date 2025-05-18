@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: filipesag/hortifruti-api:1.2
+    image: filipesag/hortifruti-api:1.3
     ports:
       - "8080:8080"
     environment:
@@ -14,9 +14,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     networks:
       - hortifruti-network
-
   db:
     image: postgres:16-alpine
     environment:
