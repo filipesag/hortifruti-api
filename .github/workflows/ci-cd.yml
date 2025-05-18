@@ -21,21 +21,25 @@ jobs:
 
       - name: Subir ambiente de desenvolvimento com Docker Compose
         run: docker compose -f docker-compose.dev.yml up -d
-
+        
       - name: Aguardando aplicação Docker Compose subir
         run: |
-            timeout=250
-            count=0
-            echo "Esperando aplicação subir..."
-            until curl -s http://localhost:8080/actuator/health | grep '"status": "UP"' > /dev/null; do
-              sleep 5
-              count=$((count+5))
-              if [ $count -ge $timeout ]; then
-                echo "Timeout esperando a aplicação subir."
-                exit 1
-              fi
-            done
-            
+          echo "Esperando aplicação subir (até 5 minutos)..."
+          for i in {1..60}; do
+            echo "Tentativa $i..."
+            if curl -s http://localhost:8080/actuator/health | grep '"status":"UP"' > /dev/null; then
+              echo "Aplicação está pronta!"
+              break
+            fi
+            sleep 5
+            if [ $i -eq 60 ]; then
+              echo "Timeout após 5 minutos esperando a aplicação subir."
+              docker compose -f docker-compose.dev.yml ps
+              docker logs $(docker ps --filter "name=app" -q)
+              exit 1
+            fi
+          done
+       
       - name: Execução dos testes unitários e integração
         run: mvn test
 
