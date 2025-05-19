@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -96,26 +97,35 @@ public class VendaService {
                     .findByProdutoAndSede(produto, venda.getSede())
                     .orElseThrow(() -> new EntityNotFoundException(
                             "Produto não disponível na sede"));
+
             if (estoque.getQuantidade() < itemDTO.quantidade()) {
                 throw new EstoqueInsuficienteException("Estoque insuficiente para o produto: " + produto.getNome());
             }
 
-            ItemVenda itemVenda = itemVendaMapper.toEntity(itemDTO);
+            ItemVenda itemVenda = new ItemVenda();
             itemVenda.setVenda(venda);
             itemVenda.setProduto(produto);
+            itemVenda.setQuantidade(itemDTO.quantidade());
+            itemVenda.setPrecoUnit(produto.getPreco());
 
             estoque.setQuantidade(estoque.getQuantidade() - itemDTO.quantidade());
             estoqueProdutoRepository.save(estoque);
 
             itemVenda = itemVendaRepository.save(itemVenda);
+
+            if (venda.getItens() == null) {
+                venda.setItens(new ArrayList<>());
+            }
             venda.getItens().add(itemVenda);
 
             totalVenda = totalVenda.add(
-                    itemVenda.getPrecoUnit().multiply(BigDecimal.valueOf(itemVenda.getQuantidade())));
-
+                    produto.getPreco().multiply(BigDecimal.valueOf(itemDTO.quantidade())));
         }
+
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);
+
+        venda.getItens().size();
         return vendaMapper.toDTO(venda);
     }
 

@@ -340,7 +340,7 @@ class VendaServiceTest {
     }
 
     private ItemVendaAdicionadoDTO criaItemVendaAddDTO(UUID produtoId) {
-        return new ItemVendaAdicionadoDTO(produtoId,30,BigDecimal.valueOf(12.90));
+        return new ItemVendaAdicionadoDTO(produtoId, 30.0,BigDecimal.valueOf(12.90));
     }
 
     private VendaResponseDTO criarVendaResponseEsperado() {
@@ -384,11 +384,11 @@ class VendaServiceTest {
     }
 
     private ItemVenda criaItemVenda(UUID id, Venda venda, Produto produto){
-        return new ItemVenda(itemVendaId, 20,BigDecimal.valueOf(12.90),venda,produto);
+        return new ItemVenda(itemVendaId, 20.0,BigDecimal.valueOf(12.90),venda,produto);
     }
 
     private EstoqueProduto criaEstoqueProduto(UUID id,Produto produto,Sede sede) {
-        return new EstoqueProduto(id,produto,sede,30);
+        return new EstoqueProduto(id,produto,sede, 30.0);
 
     }
 

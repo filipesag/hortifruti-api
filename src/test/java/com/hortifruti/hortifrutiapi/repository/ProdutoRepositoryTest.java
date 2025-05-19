@@ -67,7 +67,7 @@ class ProdutoRepositoryTest {
         EstoqueProduto estoqueProduto = EstoqueProduto.builder()
                 .produto(produto)
                 .sede(sede)
-                .quantidade(50)
+                .quantidade(50.0)
                 .build();
         entityManager.persist(estoqueProduto);
 

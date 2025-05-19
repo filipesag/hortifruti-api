@@ -25,8 +25,7 @@ public class ItemVenda implements Serializable {
     private UUID id;
 
     @NotNull
-    @Min(1)
-    private Integer quantidade;
+    private Double quantidade;
 
     @NotNull
     @Min(0)
