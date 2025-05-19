@@ -7,6 +7,6 @@ public record EstoqueProdutoResponseDTO(
         UUID produtoId,
         UUID sedeId,
         String nomeSede,
-        Integer quantidade
+        @jakarta.validation.constraints.NotNull @jakarta.validation.constraints.Min(0) Double quantidade
 ) {}
 

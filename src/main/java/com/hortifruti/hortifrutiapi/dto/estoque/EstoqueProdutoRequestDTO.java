@@ -5,5 +5,5 @@ import java.util.UUID;
 public record EstoqueProdutoRequestDTO(
         UUID produtoId,
         UUID sedeId,
-        Integer quantidade
+        Double quantidade
 ) {}

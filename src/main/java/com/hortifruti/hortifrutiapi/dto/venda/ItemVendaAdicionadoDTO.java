@@ -5,6 +5,6 @@ import java.util.UUID;
 
 public record ItemVendaAdicionadoDTO(
         UUID produtoId,
-        int quantidade,
+        Double quantidade,
         BigDecimal precoUnitario
 ) {}

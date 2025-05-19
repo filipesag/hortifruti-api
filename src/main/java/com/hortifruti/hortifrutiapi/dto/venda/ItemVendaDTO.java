@@ -7,6 +7,6 @@ public record ItemVendaDTO(
         UUID id,
         UUID produtoId,
         String nomeProduto,
-        int quantidade,
+        Double quantidade,
         BigDecimal precoUnitario
 ) {}
