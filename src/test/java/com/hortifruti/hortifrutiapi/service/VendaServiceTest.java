@@ -229,6 +229,7 @@ class VendaServiceTest {
     @Test
     @DisplayName("Deve adicionar itens de compra a venda com sucesso")
     void adicionarItensAVenda() {
+        // Configuração
         FormatoVenda formato = criarFormato(formatoId);
         Sede sede = criarSede(sedeId);
         Fornecedor fornecedor = criaForncedor(fornecedorId, null);
@@ -236,7 +237,6 @@ class VendaServiceTest {
         EstoqueProduto estoqueProduto = criaEstoqueProduto(estoqueId, produto, sede);
         ItemVendaAdicionadoDTO itemVendaAdicionadoDTO = criaItemVendaAddDTO(produtoId);
         Venda venda = criarVenda(vendaId, formato, sede, null);
-
         venda.setTotal(BigDecimal.ZERO);
 
         List<ItemVendaAdicionadoDTO> itemVendaAdicionado = List.of(itemVendaAdicionadoDTO);
@@ -248,7 +248,6 @@ class VendaServiceTest {
         when(estoqueProdutoRepository.findByProdutoAndSede(produto, venda.getSede())).thenReturn(Optional.of(estoqueProduto));
         when(estoqueProdutoRepository.save(any(EstoqueProduto.class))).thenReturn(estoqueProduto);
         when(itemVendaRepository.save(any(ItemVenda.class))).thenReturn(itemVenda);
-        when(itemVendaMapper.toEntity(itemVendaAdicionadoDTO)).thenReturn(itemVenda);
 
         VendaResponseDTO expectedResponse = criarVendaResponseEsperado();
         when(vendaMapper.toDTO(venda)).thenReturn(expectedResponse);
