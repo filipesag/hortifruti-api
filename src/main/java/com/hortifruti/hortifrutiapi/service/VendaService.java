@@ -1,9 +1,12 @@
 package com.hortifruti.hortifrutiapi.service;
 
 import com.hortifruti.hortifrutiapi.dto.balancete.BalanceteOperacaoDTO;
+import com.hortifruti.hortifrutiapi.dto.produto.ProdutoEstoqueDTO;
+import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaAdicionadoDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaRequestDTO;
 import com.hortifruti.hortifrutiapi.dto.venda.VendaResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.venda.VendasPorSedeDTO;
 import com.hortifruti.hortifrutiapi.mappers.itemVenda.ItemVendaMapper;
 import com.hortifruti.hortifrutiapi.mappers.venda.VendaMapper;
 import com.hortifruti.hortifrutiapi.model.*;
@@ -44,6 +47,23 @@ public class VendaService {
     private final ItemVendaMapper itemVendaMapper;
 
     private final VendaMapper vendaMapper;
+
+
+    @Transactional
+    public List<VendaResponseDTO> buscaVendas() {
+        List<Venda> vendas = vendaRepository.findAll();
+        List<VendaResponseDTO> listaVendas = new ArrayList<>();
+        for (Venda venda : vendas) {
+            listaVendas.add(vendaMapper.toDTO(venda));
+        }
+        return listaVendas;
+    }
+
+    @Transactional
+    public List<VendasPorSedeDTO> buscaVendasPorSede(String nomeSede){
+        List<VendasPorSedeDTO> vendasNaSede = vendaRepository.buscaVendasPorSede(nomeSede);
+        return vendasNaSede;
+    }
 
     @Transactional
     public VendaResponseDTO abreVenda(VendaRequestDTO dto, BalanceteOperacaoDTO dtoBalancete) {

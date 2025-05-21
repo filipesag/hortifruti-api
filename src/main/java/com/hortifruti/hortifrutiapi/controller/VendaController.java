@@ -1,9 +1,7 @@
 package com.hortifruti.hortifrutiapi.controller;
 
-import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaAdicionadoDTO;
-import com.hortifruti.hortifrutiapi.dto.venda.ItemVendaDTO;
-import com.hortifruti.hortifrutiapi.dto.venda.VendaComBalanceteRequestDTO;
-import com.hortifruti.hortifrutiapi.dto.venda.VendaResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.sede.SedeResponseDTO;
+import com.hortifruti.hortifrutiapi.dto.venda.*;
 import com.hortifruti.hortifrutiapi.service.VendaService;
 import com.hortifruti.hortifrutiapi.service.exceptions.EstoqueInsuficienteException;
 import jakarta.persistence.EntityNotFoundException;
@@ -22,6 +20,18 @@ public class VendaController {
 
     @Autowired
     private VendaService vendaService;
+
+    @GetMapping("/buscar-todas-vendas")
+    public ResponseEntity<List<VendaResponseDTO>> buscarTodasVendas() {
+        List<VendaResponseDTO> vendas = vendaService.buscaVendas();
+        return ResponseEntity.ok().body(vendas);
+    }
+
+    @GetMapping("/buscar-todas-vendas-por-sede")
+    public List<VendasPorSedeDTO> buscarTodasVendas(@RequestParam String nomeSede) {
+        List<VendasPorSedeDTO> vendas = vendaService.buscaVendasPorSede(nomeSede);
+        return vendas;
+    }
 
     @PostMapping("/aberta")
     public ResponseEntity<VendaResponseDTO> abreVenda(@RequestBody VendaComBalanceteRequestDTO dtoWrapper) {
