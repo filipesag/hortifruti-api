@@ -3,7 +3,7 @@ package com.hortifruti.hortifrutiapi.dto.produto;
 public interface ProdutoEstoqueDTO {
     String getNomeProduto();
     String getUnidadeMedida();
-    Integer getQuantidade();
+    Double getQuantidade();
     String getNomeSede();
 }
 

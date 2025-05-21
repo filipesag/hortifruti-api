@@ -57,7 +57,7 @@ public class VendaService {
         }
 
         Venda venda = new Venda();
-        venda.setDataVenda(dto.dataVenda() != null ? dto.dataVenda() : Instant.now());
+        venda.setDataVenda(Instant.now());
         venda.setStatusVenda(StatusVenda.ABERTA);
         venda.setTotal(dto.total() != null ? dto.total() : BigDecimal.ZERO);
         venda.setTipo_venda(formato);
@@ -124,8 +124,6 @@ public class VendaService {
 
         venda.setTotal(totalVenda);
         venda = vendaRepository.save(venda);
-
-        venda.getItens().size();
         return vendaMapper.toDTO(venda);
     }
 
@@ -143,6 +141,16 @@ public class VendaService {
     public VendaResponseDTO cancelaVenda(UUID vendaId) {
         Venda venda = vendaRepository.findById(vendaId).orElseThrow(() -> new EntityNotFoundException("Venda não encontrada"));
         venda.setStatusVenda(StatusVenda.CANCELADA);
+        List<ItemVenda> itens = venda.getItens();
+
+        for(ItemVenda item : itens){
+            List<EstoqueProduto> estoquesASerAdd = item.getProduto().getEstoques();
+            for (EstoqueProduto estoque : estoquesASerAdd) {
+                estoque.setQuantidade(estoque.getQuantidade() + item.getQuantidade());
+                estoqueProdutoRepository.save(estoque);
+            }
+        }
+
         UUID balanceteId = venda.getBalanceteOperacaoVenda().getId();
         balanceteOperacaoVendaService.zeraBalancete(balanceteId,vendaId);
         return vendaMapper.toDTO(venda);

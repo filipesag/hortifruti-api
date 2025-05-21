@@ -132,7 +132,6 @@ class VendaServiceTest {
         Sede sede = criarSede(sedeId);
 
         VendaRequestDTO vendaRequestDTO = new VendaRequestDTO(
-                Instant.now(),
                 BigDecimal.valueOf(258),
                 StatusVenda.ABERTA,
                 sede.getId(),
@@ -140,7 +139,6 @@ class VendaServiceTest {
         );
 
         BalanceteOperacaoDTO balanceteDTO = new BalanceteOperacaoDTO(
-                Instant.now(),
                 BigDecimal.valueOf(258),
                 UUID.randomUUID()
         );
@@ -156,14 +154,12 @@ class VendaServiceTest {
         FormatoVenda formato = criarFormato(formatoId);
         Sede sede = criarSede(sedeId);
         VendaRequestDTO vendaRequestDTO = new VendaRequestDTO(
-                Instant.now(),
                 BigDecimal.valueOf(258),
                 StatusVenda.ABERTA,
                 sede.getId(),
                 formato.getId()
         );
         BalanceteOperacaoDTO balanceteDTO = new BalanceteOperacaoDTO(
-                Instant.now(),
                 BigDecimal.valueOf(258),
                 UUID.randomUUID()
         );
@@ -188,13 +184,11 @@ class VendaServiceTest {
         VendaRequestDTO vendaRequestDTO = new VendaRequestDTO(
                 null,
                 null,
-                null,
                 sedeId,
                 formatoId
         );
 
         BalanceteOperacaoDTO balanceteDTO = new BalanceteOperacaoDTO(
-                null,
                 null,
                 formaPagamentoId
         );
@@ -229,7 +223,6 @@ class VendaServiceTest {
     @Test
     @DisplayName("Deve adicionar itens de compra a venda com sucesso")
     void adicionarItensAVenda() {
-        // Configuração
         FormatoVenda formato = criarFormato(formatoId);
         Sede sede = criarSede(sedeId);
         Fornecedor fornecedor = criaForncedor(fornecedorId, null);
@@ -331,11 +324,11 @@ class VendaServiceTest {
     }
 
     private VendaRequestDTO criarVendaRequestDTO(UUID sedeId, UUID formatoId) {
-        return new VendaRequestDTO(Instant.now(), BigDecimal.valueOf(100), StatusVenda.ABERTA, sedeId, formatoId);
+        return new VendaRequestDTO(BigDecimal.valueOf(100), StatusVenda.ABERTA, sedeId, formatoId);
     }
 
     private BalanceteOperacaoDTO criarBalanceteDTO(UUID formaPagamentoId) {
-        return new BalanceteOperacaoDTO(Instant.now(), BigDecimal.valueOf(258), formaPagamentoId);
+        return new BalanceteOperacaoDTO(BigDecimal.valueOf(258), formaPagamentoId);
     }
 
     private ItemVendaAdicionadoDTO criaItemVendaAddDTO(UUID produtoId) {

@@ -90,7 +90,7 @@ class ProdutoRepositoryTest {
                 .satisfies(dto -> {
                     assertThat(dto.getNomeProduto()).isEqualTo("Maçã");
                     assertThat(dto.getUnidadeMedida()).isEqualTo("KG");
-                    assertThat(dto.getQuantidade()).isEqualTo(50);
+                    assertThat(dto.getQuantidade()).isEqualTo(50.0);
                     assertThat(dto.getNomeSede()).isEqualTo("Sede Central");
                 });
     }

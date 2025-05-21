@@ -5,7 +5,6 @@ import java.time.Instant;
 import java.util.UUID;
 
 public record BalanceteOperacaoDTO(
-        Instant dataReceita,
         BigDecimal valorReceita,
         UUID formaPagamentoId
 ) {}
