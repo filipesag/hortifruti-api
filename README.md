@@ -11,7 +11,7 @@ funcionando de forma consistente em ambientes de desenvolvimento e produção.
 
 ## ☁️ Arquitetura na AWS
 
-A aplicação foi planejada para rodar em nuvem, com uma arquitetura baseada em serviços da **AWS** como EC2 e RDS.
+Diagrama dos serviços **AWS** utilizados.
 
 <p align="center">
   <img src="images/diagram-aws.png" alt="Diagrama da Arquitetura na AWS" width="700">
@@ -20,8 +20,6 @@ A aplicação foi planejada para rodar em nuvem, com uma arquitetura baseada em 
 ---
 
 ## 🧠 Modelagem Lógica do Banco de Dados
-
-A modelagem lógica contempla entidades como **Produto**, **Venda**, **Item de Venda**, **Cliente**, **Forma de Pagamento**, **Sede**, **Fornecedor**, entre outras, com chaves primárias baseadas em UUIDs e relacionamentos bem definidos.
 
 <p align="center">
   <img src="images/logic-model.png" alt="Diagrama da Modelagem Lógica" width="700">
