@@ -43,7 +43,7 @@ public class BalanceteOperacaoVendaService {
     @Transactional
     public BalanceteOperacaoVenda criaBalancete(BalanceteOperacaoDTO dto){
         BalanceteOperacaoVenda balancete = new BalanceteOperacaoVenda();
-        balancete.setDataReceita(dto.dataReceita() != null ? dto.dataReceita() : Instant.now());
+        balancete.setDataReceita(Instant.now());
         balancete.setValorReceita(dto.valorReceita() != null ? dto.valorReceita() : BigDecimal.ZERO);
         balancete.setFormaPagamento(formaPagamentoRepository.findById(dto.formaPagamentoId())
                 .orElseThrow(() -> new EntityNotFoundException("Forma de pagamento não encontrada")));
