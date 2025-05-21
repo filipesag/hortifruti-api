@@ -7,6 +7,8 @@ A empresa possui múltiplas **sedes** e **fornecedores** espalhados pelo estado,
 A aplicação foi desenvolvida em **Java 17** utilizando **Spring Boot 3.4.5**, integrada ao banco de dados **PostgreSQL**. Todo o ecossistema é containerizado com **Docker** e orquestrado via **Docker Compose**, 
 funcionando de forma consistente em ambientes de desenvolvimento e produção.
 
+Por fim, um workflow com o **GitHub Actions** foi implementado para automatizar os testes unitários e de integração, além do processo de build e deploy da aplicação na instância **EC2** da AWS
+
 ---
 
 ## ☁️ Arquitetura na AWS
