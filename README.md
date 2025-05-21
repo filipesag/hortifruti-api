@@ -14,7 +14,7 @@ funcionando de forma consistente em ambientes de desenvolvimento e produção.
 A aplicação foi planejada para rodar em nuvem, com uma arquitetura baseada em serviços da **AWS** como EC2 e RDS.
 
 <p align="center">
-  <img src="images/diagram.png" alt="Diagrama da Arquitetura na AWS" width="700">
+  <img src="images/diagram-aws.png" alt="Diagrama da Arquitetura na AWS" width="700">
 </p>
 
 ---
