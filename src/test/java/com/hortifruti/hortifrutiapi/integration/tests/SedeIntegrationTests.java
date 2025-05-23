@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,21 +37,24 @@ public class SedeIntegrationTests {
     void testeCriarNovaSede() throws IOException {
 
         SedeRequestResponse sede = new SedeRequestResponse();
+        sede.setId(UUID.randomUUID());
+        sede.setNome("Sede Test");
         sede.setBairro("Bairro Test");
         sede.setCidade("Cidade Test");
-        sede.setEstado("Estado Test");
+        sede.setEstado("QA");
         sede.setRua("Rua Test");
         sede.setNumero("123");
         sede.setDescricao("Description Test");
 
         Response response = sedeRequest.criaNova(specification, sede);
-        SedeRequestResponse novaSedeResponse = response.then().statusCode(200).extract().response().as(SedeRequestResponse.class);
+        SedeRequestResponse novaSedeResponse = response.then().statusCode(201).extract().response().as(SedeRequestResponse.class);
         assertNotNull(novaSedeResponse);
+        assertEquals("Sede Test",novaSedeResponse.getNome());
         assertEquals("Bairro Test",novaSedeResponse.getBairro());
         assertEquals("Cidade Test",novaSedeResponse.getCidade());
-        assertEquals("Estado Test",novaSedeResponse.getEstado());
+        assertEquals("QA",novaSedeResponse.getEstado());
         assertEquals("Rua Test",novaSedeResponse.getRua());
-        assertEquals("234",novaSedeResponse.getNumero());
+        assertEquals("123",novaSedeResponse.getNumero());
         assertEquals("Description Test",novaSedeResponse.getDescricao());
 
     }
