@@ -51,7 +51,7 @@ public class SedeIntegrationTests {
         assertEquals("Estado Test",novaSedeResponse.getEstado());
         assertEquals("Rua Test",novaSedeResponse.getRua());
         assertEquals("234",novaSedeResponse.getNumero());
-        assertEquals("Description Test",novaSedeResponse.setDescricao());
+        assertEquals("Description Test",novaSedeResponse.getDescricao());
 
     }
 
