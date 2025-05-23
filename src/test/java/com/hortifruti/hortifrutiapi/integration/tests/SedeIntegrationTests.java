@@ -31,4 +31,28 @@ public class SedeIntegrationTests {
         assertEquals("Savassi",sedeResponse.get(0).getBairro());
     }
 
+    @Test
+    @DisplayName("Testanto criar nova Sede")
+    void testeCriarNovaSede() throws IOException {
+
+        SedeRequestResponse sede = new SedeRequestResponse();
+        sede.setBairro("Bairro Test");
+        sede.setCidade("Cidade Test");
+        sede.setEstado("Estado Test");
+        sede.setRua("Rua Test");
+        sede.setNumero("123");
+        sede.setDescricao("Description Test");
+
+        Response response = sedeRequest.criaNova(specification, sede);
+        SedeRequestResponse novaSedeResponse = response.then().statusCode(200).extract().response().as(SedeRequestResponse.class);
+        assertNotNull(novaSedeResponse);
+        assertEquals("Bairro Test",novaSedeResponse.getBairro());
+        assertEquals("Cidade Test",novaSedeResponse.getCidade());
+        assertEquals("Estado Test",novaSedeResponse.getEstado());
+        assertEquals("Rua Test",novaSedeResponse.getRua());
+        assertEquals("234",novaSedeResponse.getNumero());
+        assertEquals("Description Test",novaSedeResponse.setDescricao());
+
+    }
+
 }
